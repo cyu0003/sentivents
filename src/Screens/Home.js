@@ -36,13 +36,8 @@ export default class Home extends Component {
                     onChangeText={(text) => this.newSubmission(text)} 
                     style={globalStyles.textBox}
                 />
-<<<<<<< HEAD
-                <Button onPress={console.log("button")}/>
-                <Input />
-=======
                 <Text>{this.state.text}</Text>
                 <Button buttonPress={this.buttonPress}/>
->>>>>>> ddf030807923e6e4d0ef0d27329604d9a84f9ba4
             </View>
             
         );
