@@ -1,10 +1,23 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { ActivityIndicator } from 'react-native';
 
-import Navigator from './src/Screens/Navigator'
+//import AppLoading from 'expo-app-loading';
 
-export default function App() {
-  return (
-    <Navigator /> 
-  );
+import Navigator from './src/Screens/Navigator';
+
+export default class App extends Component {
+	constructor() {
+		super();
+		this.state = {
+			isReady: true,
+		}
+	}
+
+	render() {
+		if (this.state.isReady) {
+			return (
+				<Navigator />
+			);
+		}
+	}
 }

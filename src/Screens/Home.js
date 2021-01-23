@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
 
-import TextBox from '../components/TextBox';
+import Button from '../components/Button';
 
 export default class Home extends Component {
     constructor() {
         super();
         this.state = {
-            text: "",
-        }
+            text: '',
+        };
 
-        this.onTextChange = this.onTextChange.bind(this);
+        this.newSubmission = this.newSubmission.bind(this);
+        this.buttonPress = this.buttonPress.bind(this);
     }
 
-    onTextChange(newText) {
+    newSubmission(newText) {
         this.setState({ text: newText });
     }
 
-    render () {
+    buttonPress() {
+        console.log(this.state.text);
+        //db.newMessage(newText);
+    }
+
+    render() {
         return (
             <View style={ globalStyles.main }>
                 <Text>HomeScreen lmao</Text>
-                <TextBox
-                    text={this.state.text}
-                    onChange={this.onTextChange}
+                <TextInput
+                    maxLength={1000}
+                    placeholder='What do you want to vent about?'
+                    value={this.state.text}
+                    onChangeText={(text) => this.newSubmission(text)} 
+                    style={globalStyles.textBox}
                 />
                 <Text>{this.state.text}</Text>
+                <Button buttonPress={this.buttonPress}/>
             </View>
         );
     }
