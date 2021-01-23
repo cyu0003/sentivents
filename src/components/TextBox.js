@@ -15,8 +15,6 @@ export default class TextBox extends Component {
     render () {
         return (
             <TextInput
-                multiline
-                numberOfLines={10}
                 maxLength={1000}
                 placeholder={this.state.text}
                 onChangeText={(text) => this.props.onChange(text)} 
