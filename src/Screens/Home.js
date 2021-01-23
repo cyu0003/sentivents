@@ -3,7 +3,6 @@ import { View, Text, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
 
 import Button from '../components/Button';
-import Input from '../components/Input';
 
 export default class Home extends Component {
     constructor() {
@@ -34,7 +33,7 @@ export default class Home extends Component {
               data: responseJson
            })
 
-           console.log(this.state.data.emoji);
+           console.log(this.state.data.emoji[0][0][0]);
         })
         .catch((error) => {
            console.error(error);

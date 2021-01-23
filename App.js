@@ -20,7 +20,7 @@ export default class App extends Component {
 
 		db.transaction((tx) => {
 			tx.executeSql(
-				'CREATE TABLE IF NOT EXISTS messages (msg TEXT, date TEXT, emoji1 TEXT, emoji2 TEXT, emoji3 TEXT, emoji4 TEXT, emoji5 TEXT)'
+        'CREATE TABLE IF NOT EXISTS messages (msg TEXT, date TEXT, emoji1 TEXT, emoji2 TEXT, emoji3 TEXT, emoji4 TEXT, emoji5 TEXT)'
 			)
 		})
 	}
