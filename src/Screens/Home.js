@@ -4,6 +4,7 @@ import { globalStyles } from '../styles/global';
 
 import TextBox from '../components/TextBox';
 import Button from '../components/Button';
+import Input from '../components/Input';
 
 export default class Home extends Component {
     constructor() {
@@ -28,7 +29,9 @@ export default class Home extends Component {
                     onChange={this.onTextChange}
                 />
                 <Button onPress={console.log("button")}/>
+                <Input />
             </View>
+            
         );
     }
 }
