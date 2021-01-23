@@ -3,7 +3,6 @@ import { View, Text, Button } from 'react-native';
 import { globalStyles } from '../styles/global';
 
 import TextBox from '../components/TextBox';
-import VoiceNative from '../components/VoiceNative'
 
 export default class Home extends Component {
     constructor() {
