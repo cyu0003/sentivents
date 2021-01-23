@@ -36,7 +36,7 @@ export default class Diary extends Component {
     render() {
         return (
             <View style={globalStyles.main}>
-                <Text>Filler text</Text>
+                <Text>{ this.state.data }</Text>
             </View>
         );
     }

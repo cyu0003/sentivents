@@ -34,11 +34,11 @@ export default class Home extends Component {
         this.setState({ text: newText });
     }
 
-    buttonPress() {
+    async buttonPress() {
         console.log(this.state.text);
         console.log(this.state.date);
 
-        fetch('http://34.121.2.138:8080/emote?sentences=[\"' + this.state.text + '\"]', {
+        await fetch('http://34.121.2.138:8080/emote?sentences=[\"' + this.state.text + '\"]', {
            method: 'GET'
         })
         .then((response) => response.json())
@@ -48,7 +48,8 @@ export default class Home extends Component {
                data: responseJson
             })
 
-           console.log(this.state.data.emoji[0][0][0]);
+           console.log('INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+           [this.state.text, this.state.date, this.state.data.emoji[0][0][0], this.state.data.emoji[0][1][0], this.state.data.emoji[0][2][0], this.state.data.emoji[0][3][0], this.state.data.emoji[0][4][0], this.state.data.emoji[0][0][1], this.state.data.emoji[0][1][1], this.state.data.emoji[0][2][1], this.state.data.emoji[0][3][1], this.state.data.emoji[0][4][1]]);
         })
         .catch((error) => {
            console.error(error);
