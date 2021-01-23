@@ -3,6 +3,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import Home from './Home';
 import Graph from './Graph';
+import Calendar from './Calendar'
 
 const screens = {
     Home: {
@@ -11,6 +12,9 @@ const screens = {
     Graph1: {
         screen: Graph
     },
+    Calendar: {
+        screen: Calendar
+    }
 };
 
 const Navigator = createDrawerNavigator(screens);
