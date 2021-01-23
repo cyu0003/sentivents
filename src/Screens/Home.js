@@ -7,7 +7,7 @@ export default class Home extends Component {
     constructor() {
         super();
         this.state = {
-            text: "hello",
+            text: "",
         }
 
         this.onTextChange = this.onTextChange.bind(this);
@@ -21,7 +21,10 @@ export default class Home extends Component {
         return (
             <View>
                 <Text>HomeScreen lmao</Text>
-                <TextBox text={this.state.text} onChange={this.onTextChange}/>
+                <TextBox
+                    text={this.state.text}
+                    onChange={this.onTextChange}
+                />
                 <Text>{this.state.text}</Text>
             </View>
         );
