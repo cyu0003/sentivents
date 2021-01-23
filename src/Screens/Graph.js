@@ -9,9 +9,7 @@ export default class Graph extends Component {
                 <Text>This is where a graph goes</Text>
                 <MonthCalendarGraph year={2021} month={0}/>
                 <RecentDaysCalendarGraph days={69}/>
-                <YearCalendarGraph year={2020}/>
-
-                {/* <CalendarGraph year={2017} month={0}/> */}
+                <YearCalendarGraph year={2021}/>
             </ScrollView>
         );
     }
