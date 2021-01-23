@@ -112,7 +112,7 @@ export const RecentDaysCalendarGraph = ({ days }) => {
 export const YearCalendarGraph = ({ year }) => {
   const months = []
   for (let i = 0; i < 12; i++) {
-    months.push(<MonthCalendarGraph year={year} month={i}/>)
+    months.push(<MonthCalendarGraph year={year} month={i} key={i}/>)
   }
   return months
 };
