@@ -8,7 +8,7 @@ export default class Home extends Component {
     constructor() {
         super();
         this.state = {
-            text: "hello",
+            text: "",
         }
 
         this.onTextChange = this.onTextChange.bind(this);
@@ -22,7 +22,11 @@ export default class Home extends Component {
         return (
             <View style={ globalStyles.main }>
                 <Text>HomeScreen lmao</Text>
-                <TextBox text={this.state.text} onChange={this.onTextChange} style={globalStyles.textBox}/>
+                <TextBox
+                    text={this.state.text}
+                    onChange={this.onTextChange}
+                    style={globalStyles.textBox}
+                />
                 <Text>{this.state.text}</Text>
             </View>
         );
