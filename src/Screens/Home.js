@@ -3,6 +3,7 @@ import { View, Text, Button } from 'react-native';
 import { globalStyles } from '../styles/global';
 
 import TextBox from '../components/TextBox';
+import VoiceNative from '../components/VoiceNative'
 
 export default class Home extends Component {
     constructor() {
@@ -15,7 +16,7 @@ export default class Home extends Component {
     }
 
     onTextChange(newText) {
-        this.setState({ text: newText })
+        this.setState({ text: newText });
     }
 
     render () {
@@ -25,7 +26,6 @@ export default class Home extends Component {
                 <TextBox
                     text={this.state.text}
                     onChange={this.onTextChange}
-                    style={globalStyles.textBox}
                 />
                 <Text>{this.state.text}</Text>
             </View>
