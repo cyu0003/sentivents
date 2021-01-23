@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
+import * as SQLite from 'expo-sqlite';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -29,10 +30,10 @@ export default class Home extends Component {
         })
         .then((response) => response.json())
         .then((responseJson) => {
-           //console.log(responseJson);
-           this.setState({
-              data: responseJson
-           })
+            //console.log(responseJson);
+            this.setState({
+               data: responseJson
+            })
 
            console.log(this.state.data.emoji);
         })
@@ -42,6 +43,31 @@ export default class Home extends Component {
         
         this.setState({ text: null });
         //db.newMessage(newText);
+    }
+
+    submitButton() {
+        var db = SQLite.openDatabase({ name: 'UserDatabase.db' });
+
+        db.transaction((tx) => {
+            tx.executeSql(
+                'INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [/* insert values pulled from {data} here */],
+                (tx, results) => {
+                    console.log('results', results.rowsAffected);
+                    if (results.rowsAffected > 0) {
+                        Alert.alert(
+                            'Success',
+                            [
+                                {
+                                    text: 'ok',
+                                },
+                            ],
+                            { cancelable: true }
+                        )
+                    }
+                }
+            )
+        });
     }
 
     render() {
