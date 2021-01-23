@@ -14,8 +14,10 @@ export default class Diary extends Component {
     }
 
     componentDidMount() {
+        console.log('tried to open db')
         let db = SQLite.openDatabase({ name: 'UserDatabase.db' });
-
+        console.log(db)
+        
         db.transaction((tx) => {
             'SELECT * from messages',
         (tx, results) => {
@@ -28,7 +30,8 @@ export default class Diary extends Component {
                 alert('no messages');
             }
         }
-        })
+        });
+        console.log('mounted');
     }
 
 
@@ -36,7 +39,7 @@ export default class Diary extends Component {
     render() {
         return (
             <View style={globalStyles.main}>
-                <Text>{ this.state.data }</Text>
+                <Text>{this.state.data}</Text>
             </View>
         );
     }
