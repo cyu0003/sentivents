@@ -16,7 +16,7 @@ export default class Home extends Component {
     }
 
     onTextChange(newText) {
-        this.setState({ text: newText })
+        this.setState({ text: newText });
     }
 
     render() {
@@ -26,7 +26,6 @@ export default class Home extends Component {
                 <TextBox
                     text={this.state.text}
                     onChange={this.onTextChange}
-                    style={globalStyles.textBox}
                 />
                 <Button onPress={console.log("button")}/>
             </View>
