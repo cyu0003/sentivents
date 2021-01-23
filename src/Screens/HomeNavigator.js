@@ -1,5 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import Home from './Home';
 import Graph from './Graph';
@@ -13,6 +14,6 @@ const screens = {
     },
 };
 
-const HomeNavigator = createStackNavigator(screens);
+const Navigator = createDrawerNavigator(screens);
 
-export default createAppContainer(HomeNavigator);
+export default createAppContainer(Navigator);
