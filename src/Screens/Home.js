@@ -20,15 +20,10 @@ export default class Home extends Component {
 
     render () {
         return (
-<<<<<<< HEAD
-            <View style={globalStyles.container}>
-                <Text >HomeScreen lmao</Text>
-=======
-            <View>
+            <View style={ globalStyles.main }>
                 <Text>HomeScreen lmao</Text>
-                <TextBox text={this.state.text} onChange={this.onTextChange}/>
+                <TextBox text={this.state.text} onChange={this.onTextChange} style={globalStyles.textBox}/>
                 <Text>{this.state.text}</Text>
->>>>>>> 7d9db5012665a63649182323675a395732677c6b
             </View>
         );
     }
