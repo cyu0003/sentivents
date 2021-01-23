@@ -4,6 +4,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Home from './Home';
 import Graph from './Graph';
 import Calendar from './Calendar'
+import Diary from './Diary';
 
 const screens = {
     Home: {
@@ -14,6 +15,9 @@ const screens = {
     },
     Calendar: {
         screen: Calendar
+    },
+    Diary: {
+        screen: Diary
     }
 };
 

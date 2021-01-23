@@ -14,7 +14,7 @@ export default class Button extends Component {
                 onPress={() => this.props.buttonPress()}
                 style={globalStyles.button}
             >
-                <Text>Show quote</Text>
+                <Text>Submit</Text>
             </TouchableOpacity>
         );
     }
