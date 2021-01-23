@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
+import * as SQLite from 'expo-sqlite';
 
 import Button from '../components/Button';
 
@@ -28,10 +29,10 @@ export default class Home extends Component {
         })
         .then((response) => response.json())
         .then((responseJson) => {
-           //console.log(responseJson);
-           this.setState({
-              data: responseJson
-           })
+            //console.log(responseJson);
+            this.setState({
+               data: responseJson
+            })
 
            console.log(this.state.data.emoji[0][0][0]);
         })
@@ -41,6 +42,39 @@ export default class Home extends Component {
         
         this.setState({ text: null });
         //db.newMessage(newText);
+    }
+
+    submitButton() {
+        var db = SQLite.openDatabase({ name: 'UserDatabase.db' });
+
+        db.transaction((tx) => {
+
+            var date = new Date().getDate();
+            var month = new Date().getMonth() + 1;
+            var year = new Date().getFullYear();
+
+            //Alert.alert(date + '-' + month + '-' + year);
+            // You can turn it in to your desired format
+            const currDate = date + '-' + month + '-' + year;//format: dd-mm-yyyy;
+            tx.executeSql(
+                'INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [this.state.text, currDate, this.state.data.emoji[0][0][0], this.state.data.emoji[0][1][0], this.state.data.emoji[0][2][0], this.state.data.emoji[0][3][0], this.state.data.emoji[0][4][0], this.state.data.emoji[0][0][1], this.state.data.emoji[0][1][1], this.state.data.emoji[0][2][1], this.state.data.emoji[0][3][1], this.state.data.emoji[0][4][1]],
+                (tx, results) => {
+                    console.log('results', results.rowsAffected);
+                    if (results.rowsAffected > 0) {
+                        Alert.alert(
+                            'Success',
+                            [
+                                {
+                                    text: 'ok',
+                                },
+                            ],
+                            { cancelable: true }
+                        )
+                    }
+                }
+            )
+        });
     }
 
     render() {
