@@ -1,32 +1,44 @@
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { openDatabase } from 'react-native-sqlite-storage';
+import * as SQLite from 'expo-sqlite';
 
-//import AppLoading from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 
-<<<<<<< HEAD
-
-
-export default function App() {
-  return (
-    <Navigator /> 
-  );
-=======
 import Navigator from './src/Screens/Navigator';
 
 export default class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			isReady: true,
+			isReady: false,
 		}
 	}
+
+	async asyncSetUp() {
+		var db = SQLite.openDatabase({ name: 'UserDatabse.db' });
+
+		db.transaction((tx) => {
+			tx.executeSql(
+				'CREATE TABLE IF NOT EXISTS messages (msg TEXT, date TEXT, emoji1 TEXT, emoji2 TEXT, emoji3 TEXT, emoji4 TEXT, emoji5 TEXT)'
+			)
+		})
+	}
+	
 
 	render() {
 		if (this.state.isReady) {
 			return (
 				<Navigator />
 			);
+		} else {
+			return (
+				<AppLoading
+					startAsync={this.asyncSetUp}
+					onFinish={() => this.setState({ isReady: true })}
+					onError={console.warn}
+				/>
+			);
 		}
 	}
->>>>>>> ddf030807923e6e4d0ef0d27329604d9a84f9ba4
 }
