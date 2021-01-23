@@ -1,0 +1,23 @@
+diff --git a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js b/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
+index 5755b4f..4c2513b 100644
+--- a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
++++ b/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
+@@ -32,7 +32,8 @@ import { convertToDate, getBeginningTimeForDate, shiftDate } from "./DateHelpers
+ import { DAYS_IN_WEEK, MILLISECONDS_IN_ONE_DAY, MONTH_LABELS } from "./constants";
+ var SQUARE_SIZE = 20;
+ var MONTH_LABEL_GUTTER_SIZE = 8;
+-var paddingLeft = 32;
++var paddingLeft = 24;
++var monthLabelAntiPadding = 24;
+ var ContributionGraph = /** @class */ (function (_super) {
+     __extends(ContributionGraph, _super);
+     function ContributionGraph(props) {
+@@ -202,7 +203,7 @@ var ContributionGraph = /** @class */ (function (_super) {
+         }
+         var verticalOffset = -2;
+         return [
+-            0,
++            -monthLabelAntiPadding,
+             (weekIndex + 1) * this.getSquareSizeWithGutter() + verticalOffset
+         ];
+     };

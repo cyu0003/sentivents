@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Button, ScrollView } from "react-native";
+import { View, Text, Button, ScrollView, StyleSheet } from "react-native";
 import {
   MonthCalendarGraph,
   RecentDaysCalendarGraph,
@@ -7,6 +7,12 @@ import {
 } from "../components/CalendarGraph";
 import { LineGraph } from "../components/LineGraph";
 import { Picker } from "@react-native-picker/picker";
+
+const styles = StyleSheet.create({
+    cal:{
+
+    }
+})
 export default class Graph extends Component {
   render() {
     return (

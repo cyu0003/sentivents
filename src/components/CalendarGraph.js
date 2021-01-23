@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Dimensions } from "react-native";
+import { Text, View } from "react-native";
 
 import {
   // LineChart,
@@ -9,8 +9,6 @@ import {
   ContributionGraph,
   // StackedBarChart
 } from "react-native-chart-kit";
-
-const screenWidth = Dimensions.get("window").width;
 
 //https://stackoverflow.com/questions/2483719/get-weeks-in-month-through-javascript
 function weekCount(year, month_number) {
@@ -23,18 +21,18 @@ function weekCount(year, month_number) {
 const generateData = (endDate, numDays) => {
   // add a baseline
   const dataList = [{ date: "1900-1-1", mood: 100 }];
-  // endDate.setDate(endDate.getDate()+1)
+
   let currDate = new Date(endDate);
-  currDate.setDate(currDate.getDate() - numDays + 2);
+  currDate.setDate(currDate.getDate() - numDays + 1);
   //TODO, there is an off by one error somewehre in the the chart library
   for (let i = 0; i < numDays; i++) {
+    currDate.setDate(currDate.getDate() + 1);
     dataList.push({
       date: `${currDate.getFullYear()}-${
         currDate.getMonth() + 1
       }-${currDate.getDate()}`,
       mood: Math.random() * 100,
     });
-    currDate.setDate(currDate.getDate() + 1);
   }
   // console.log(dataList)
   return dataList;
@@ -44,7 +42,7 @@ const calendarConfig = {
   color: (opacity = 1) => interpolateColor("2afb53", "754af7", opacity),
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
-  propsForLabels:{fontWeight:"bold", fontSize:24, fill:"#222222"}
+  propsForLabels:{fontWeight:"bold", fontSize:16, fill:"#222222"}
 };
 
 const interpolateColor = (c1, c2, ratio) => {
@@ -81,10 +79,11 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
   return (
     <View>
       <ContributionGraph
+        style={{ alignItems:"center"}}
         values={moodData}
         endDate={endDate}
         numDays={numDays}
-        width={screenWidth}
+        width={380}
         height={height || Math.ceil((numDays * 50) / 7 + 50)}
         chartConfig={calendarConfig}
         accessor={"mood"}
@@ -101,12 +100,12 @@ export const MonthCalendarGraph = ({ year, month }) => {
   const calendarDate = new Date(year, month + 1, 0);
 
   return (
-    <CalendarGraph endDate={calendarDate} numDays={calendarDate.getDate()} height={weekCount(year, month)*50+20} labels={true}/>
+    <CalendarGraph endDate={calendarDate} numDays={calendarDate.getDate()} height={weekCount(year, month)*50} labels={true}/>
   );
 };
 
 export const RecentDaysCalendarGraph = ({ days }) => {
-  return <CalendarGraph endDate={new Date()} numDays={days} labels={false}/>;
+  return <CalendarGraph endDate={new Date()} numDays={days} labels={true}/>;
 };
 
 export const YearCalendarGraph = ({ year }) => {
