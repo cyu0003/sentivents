@@ -12,28 +12,20 @@ import {
 
 const screenWidth = Dimensions.get("window").width;
 
-const moodData = [
-  { date: "2017-01-01", mood: 0 },
-  { date: "2017-01-02", mood: 1 },
-  { date: "2017-01-04", mood: 3 },
-  { date: "2017-01-07", mood: 6 },
-  { date: "2017-01-08", mood: 7 },
-  { date: "2017-01-09", mood: 8 },
-  { date: "2017-01-12", mood: 11 },
-  { date: "2017-01-13", mood: 12 },
-  { date: "2017-01-14", mood: 13 },
-  { date: "2017-01-15", mood: 14 },
-  { date: "2017-01-16", mood: 15 },
-  { date: "2017-01-17", mood: 16 },
-  { date: "2017-01-19", mood: 18 },
-  { date: "2017-01-20", mood: 57 },
-  { date: "2017-01-21", mood: 20 },
-  { date: "2017-01-22", mood: 21 },
-  { date: "2017-01-26", mood: 25 },
-  { date: "2017-01-27", mood: 26 },
-  { date: "2017-01-28", mood: 27 },
-  { date: "2017-01-29", mood: 100 },
-];
+const generateData = (endDate, numDays)=>{
+  // add a baseline
+  const dataList = [{date: "1900-1-1", mood:100}]
+  // endDate.setDate(endDate.getDate()+1)
+  let currDate = new Date(endDate);
+  currDate.setDate(currDate.getDate()-numDays+2);
+  //TODO, there is an off by one error somewehre in the the chart library
+  for(let i = 0; i < numDays; i++) {
+    dataList.push({date:`${currDate.getFullYear()}-${currDate.getMonth()+1}-${currDate.getDate()}`, mood: Math.random()*100})
+    currDate.setDate(currDate.getDate()+1)
+  }
+  // console.log(dataList)
+  return dataList
+}
 
 const calendarConfig = {
   color: (opacity = 1) => interpolateColor("2afb53","754af7", opacity),
@@ -70,7 +62,8 @@ const interpolateColor = (c1, c2, ratio) => {
 };
 
 const CalendarGraph = ({endDate, numDays}) => {
- 
+  const moodData = generateData(endDate, numDays)
+  // endDate.setDate(endDate.getDate()-1)
   return (
     <View>
       <ContributionGraph
@@ -78,7 +71,7 @@ const CalendarGraph = ({endDate, numDays}) => {
         endDate={endDate}
         numDays={numDays}
         width={screenWidth}
-        height={220}
+        height={Math.ceil(numDays*50/7 + 50)}
         chartConfig={calendarConfig}
         accessor={"mood"}
         horizontal={false}
@@ -88,16 +81,16 @@ const CalendarGraph = ({endDate, numDays}) => {
   );
 };
 
-const MonthCalendarGraph = ({year, month}) => {
+export const MonthCalendarGraph = ({year, month}) => {
   const calendarDate = new Date(year, month+1, 0);
   return <CalendarGraph endDate={calendarDate} numDays={calendarDate.getDate()}/>
 }
 
-const RecentDaysCalendarGraph = ({days})=>{
-  return <CalendarGraph endDate={Date.now()} numDays={days}/>
+export const RecentDaysCalendarGraph = ({days})=>{
+  return <CalendarGraph endDate={new Date()} numDays={days}/>
 }
 
-const YearCalendarGraph = ({year})=>{
+export const YearCalendarGraph = ({year})=>{
   let days  = 365;
   if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
     days++;
@@ -105,4 +98,3 @@ const YearCalendarGraph = ({year})=>{
   return <CalendarGraph endDate={new Date(year, 12, 31)} numDays={days}/>
 }
 
-export default {MonthCalendarGraph, RecentDaysCalendarGraph, YearCalendarGraph};
