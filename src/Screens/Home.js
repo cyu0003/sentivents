@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { globalStyles } from '../styles/global';
 
 import TextBox from '../components/TextBox';
+import Button from '../components/Button';
 
 export default class Home extends Component {
     constructor() {
@@ -18,7 +19,7 @@ export default class Home extends Component {
         this.setState({ text: newText })
     }
 
-    render () {
+    render() {
         return (
             <View style={ globalStyles.main }>
                 <Text>HomeScreen lmao</Text>
@@ -27,7 +28,7 @@ export default class Home extends Component {
                     onChange={this.onTextChange}
                     style={globalStyles.textBox}
                 />
-                <Text>{this.state.text}</Text>
+                <Button onPress={console.log("button")}/>
             </View>
         );
     }

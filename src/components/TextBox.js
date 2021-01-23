@@ -17,7 +17,7 @@ export default class TextBox extends Component {
             <TextInput
                 maxLength={1000}
                 placeholder={this.state.text}
-                onChangeText={(text) => this.props.onChange(text)} 
+                onSubmitEditing={(text) => this.props.onChange(text)} 
                 style={globalStyles.textBox}
             />
         );
