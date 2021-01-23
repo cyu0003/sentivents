@@ -1,10 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+//import AppLoading from 'expo-app-loading';
 
-import Navigator from './src/Screens/Navigator'
+import Navigator from './src/Screens/Navigator';
 
-export default function App() {
-  return (
-    <Navigator /> 
-  );
+export default class App extends Component {
+	render() {
+		return (
+			<Navigator />
+		);
+	}
 }

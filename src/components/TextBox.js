@@ -8,8 +8,8 @@ export default class TextBox extends Component {
         super(props);
         
         this.state = {
-            text: "Enter your quote of the day!",
-        }
+            text: "What do you want to vent about?",
+        };
     }
 
     render () {

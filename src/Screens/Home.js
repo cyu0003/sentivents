@@ -10,13 +10,14 @@ export default class Home extends Component {
         super();
         this.state = {
             text: "",
-        }
+        };
 
         this.onTextChange = this.onTextChange.bind(this);
     }
 
     onTextChange(newText) {
         this.setState({ text: newText });
+        //db.newMessage(newText);
     }
 
     render() {
@@ -24,10 +25,10 @@ export default class Home extends Component {
             <View style={ globalStyles.main }>
                 <Text>HomeScreen lmao</Text>
                 <TextBox
-                    text={this.state.text}
                     onChange={this.onTextChange}
                 />
-                <Button onPress={console.log("button")}/>
+                <Text>Input text is {this.state.text}</Text>
+                <Button />
             </View>
         );
     }
