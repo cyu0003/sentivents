@@ -4,7 +4,7 @@ import * as SQLite from 'expo-sqlite';
 import AppLoading from 'expo-app-loading';
 
 import * as dbMethods from './src/dbMethods'
-import Navigator from './src/Navigator';
+import StackNavigator from './src/StackNavigator';
 
 //import { globalStyles } from './src/styles/global'
 
@@ -58,7 +58,7 @@ export default class App extends Component {
     render() {
         if (this.state.isReady) {
             return (
-                <Navigator />
+                <StackNavigator />
             );
         } else {
             return (
