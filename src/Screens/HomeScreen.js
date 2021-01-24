@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
+import * as dbMethods from '../dbMethods';
 import Button from '../components/Button';
 import TimeSummary from '../components/TimeSummary';
 
 import { globalStyles } from '../styles/global';
+
+import TabNavigation from '../components/TabNavigation'
 
 export default class HomeScreen extends Component {
     constructor() {
@@ -30,30 +33,30 @@ export default class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        console.log('mount')
-        let db = SQLite.openDatabase('UserDatabase.db');
+        console.log('mount');
 
-        db.transaction((tx) => {
-            tx.executeSql(
-                'SELECT * from messages',
-                (tx, results) => {
-                    var data = results.rows.array;
-                    var len = results.rows.length;
-                    //console.log(results.rows.array);
-                    console.log(len);
+        var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
 
-                    if (len > 0) {
-                        this.setState({ data: data[0] }); /* this is the first row returned by the database */
-                    } else {
-                        this.setState({ data: ["uhhhhh there's nothing lmao"] });
-                        alert('no messages');
-                    }
-                },
-                (tx, err) => {
-                    console.log(err);
-                }
-            )
-        });
+        let dates = [];
+
+        for (let i = 0; i < 7; i++) {
+            //date -= 1;
+            const currDate = year + '-' + month + '-' + date;
+
+            dates[i] = currDate;
+
+            console.log(currDate);
+        }
+
+        let data = [];
+
+        for (let i = 0; i < dates.length; i++) {
+            data[i] = dbMethods.getMessages(dates[i]);
+        }
+
+        console.log(data);
     }
 
     onPress() {
@@ -81,16 +84,14 @@ export default class HomeScreen extends Component {
             <ScrollView contentContainerStyle={globalStyles.main}>
                 <TimeSummary/>
                 <Button
-                    buttonText='Create New Log'
-                    onPress={this.onPress}
-                />
-                <Button
-                    buttonText='View Calendar'
-                    onPress={this.onPress2}
-                />
-                <Button
                     buttonText='Do not press unless you are Chris lmao'
                     onPress={this.clearDB}
+                />
+                <TabNavigation 
+                    buttonText='Home'
+                    buttonText2='Calendar'
+                    onPress={this.onPress}
+                    onPress2={this.onPress2}
                 />
             </ScrollView>
         );

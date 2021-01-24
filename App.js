@@ -3,6 +3,7 @@ import { ActivityIndicator } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import AppLoading from 'expo-app-loading';
 
+import * as dbMethods from './src/dbMethods'
 import Navigator from './src/Navigator';
 
 //import { globalStyles } from './src/styles/global'
@@ -32,10 +33,10 @@ export default class App extends Component {
 	}
 	
 	async populateDB(db) {
+        console.log('populate');
 		var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
-        const currDate = date + '-' + month + '-' + year;
 		
 		const stringArray = ['I feel great today!', 'Today was not a good day for me.', 'I hung out with my friends today!', 'I got a bad grade on my test today.', 'My dog died today.'];
 
@@ -43,23 +44,14 @@ export default class App extends Component {
 			const response = await fetch('http://34.121.2.138:8080/emote?sentences=[\"' + stringArray[i] + '\"]', {
         		method: 'GET'
         	});
-            const data = await response.json();;
+            const data = await response.json();
+
+            date = date - (i + 1);
+            const currDate = year + '-' + month + '-' + date;
 			
-			db.transaction((tx) => {
-				tx.executeSql(
-					'INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-					[stringArray[i], currDate, data.emoji[0][0][0], data.emoji[0][1][0], data.emoji[0][2][0], data.emoji[0][3][0], data.emoji[0][4][0], data.emoji[0][0][1], data.emoji[0][1][1], data.emoji[0][2][1], data.emoji[0][3][1], data.emoji[0][4][1]],
-					null,
-					(tx, err) => {
-						console.log(err);
-					}
-				)
-			},
-			(err) => {
-				console.log(err);
-			},
-			null);
+			dbMethods.insertMessage([stringArray[i], currDate, data.emoji[0][0][0], data.emoji[0][1][0], data.emoji[0][2][0], data.emoji[0][3][0], data.emoji[0][4][0], data.emoji[0][0][1], data.emoji[0][1][1], data.emoji[0][2][1], data.emoji[0][3][1], data.emoji[0][4][1]]);
         }
+        console.log(db);
 	}
 
 
