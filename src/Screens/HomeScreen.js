@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
 import Button from '../components/Button';
-import Calendar from '../components/Calendar';
+import Calendar from './Calendar';
 
 import { globalStyles } from '../styles/global'
 
@@ -56,6 +56,10 @@ export default class HomeScreen extends Component {
         this.props.navigation.navigate('Edit')
     }
 
+    onPress2() {
+        this.props.navigation.navigate('Calendar')
+    }
+
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
@@ -63,6 +67,10 @@ export default class HomeScreen extends Component {
                 <Button
                     buttonText='Create New Log'
                     onPress={this.onPress}
+                />
+                <Button
+                    buttonText='View Calendar'
+                    onPress={this.onPress2}
                 />
             </ScrollView>
         );

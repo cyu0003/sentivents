@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import NumberInput from "./NumberInput";
+import NumberInput from "../components/NumberInput";
 import {
   MonthCalendarGraph,
   RecentDaysCalendarGraph,
   YearCalendarGraph,
-} from "./CalendarGraph";
+} from "../components/CalendarGraph";
 import { globalStyles } from "../styles/global";
 
 const YearPicker = ({ years, onChangeYear, selectedYear }) => {
