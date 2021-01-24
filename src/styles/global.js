@@ -11,6 +11,20 @@ export const globalStyles = StyleSheet.create({
         marginTop: '3%',
         marginBottom: '3%',
     },
+    button2: {
+        alignItems: 'center',
+        backgroundColor: '#6545D8',
+        padding: 10,
+        borderRadius: 10,
+        width: '30%',
+        left: '20%',
+        marginTop: '3%',
+        marginBottom: '9%',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
     main: {
         flex: 1,
         backgroundColor: '#23232D',
