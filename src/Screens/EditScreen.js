@@ -31,7 +31,7 @@ export default class EditScreen extends Component {
         console.log(this.state.text);
         this.getData().then((data) =>
             this.setState({ data: data },
-                          _ => this.props.navigation.navigate('Stats', { data: this.state.data, text: this.state.text }))
+                          () => this.props.navigation.navigate('Stats', { data: this.state.data, text: this.state.text }))
         );
     }
 
