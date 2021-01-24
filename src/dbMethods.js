@@ -19,41 +19,31 @@ export function insertMessage(values) {
     );
 }
 
-export function getMessages(date) {
-    var data = [];
-    db.transaction(tx => {
+export async function getMessages(date) {
+    return new Promise((resolve, reject) => db.transaction(tx => {
         tx.executeSql(
             GET_DAY_SQL,
             [date],
-            (tx, results) => {
-                console.log(results.rows._array)
-                data = results.rows._array;
-            },
-            (tx, err) => { console.log(err); }
+            (tx, results) => { resolve(results.rows._array); },
+            (tx, err) => { console.log(err); reject(err); }
         )},
         (err) => { console.log(err); },
         null
-    );
-
-    console.log('--------------------------------------------------------')
-    console.log(data)
-    return data;
+    ));
 }
 
-export function getMonthMessages(date) {
+export async function getMonthMessages(date) {
     /* date should be in the format YYYY-MM-DD */
-    var data = [];
-    let month = date.slice(0, 9) + '%'
-    db.transaction(tx => {
+    let parts = date.split("-")
+    let month = parts[0] + '-' + parts[1] + '-%'
+    return new Promise((resolve, reject) => db.transaction(tx => {
         tx.executeSql(
             GET_MONTH_SQL,
             [month],
-            (tx, results) => {
-                data = results.rows._array;
-            },
-            (tx, err) => { console.log(err); }
+            (tx, results) => { resolve(results.rows._array); },
+            (tx, err) => { console.log(err); reject(err); }
         )},
         (err) => { console.log(err); },
         null
-    );
+    ));
 }
