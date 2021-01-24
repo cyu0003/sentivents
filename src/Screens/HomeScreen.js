@@ -31,6 +31,7 @@ export default class HomeScreen extends Component {
     }
 
     async componentDidMount() {
+        console.log('mounted home')
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
