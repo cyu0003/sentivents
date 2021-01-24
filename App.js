@@ -27,13 +27,40 @@ export default class App extends Component {
             tx.executeSql(
                 'CREATE TABLE IF NOT EXISTS messages (msg TEXT, date TEXT, emoji1 TEXT, emoji2 TEXT, emoji3 TEXT, emoji4 TEXT, emoji5 TEXT, cv1 REAL, cv2 REAL, cv3 REAL, cv4 REAL, cv5 REAL)', [], null, null
             )
-		})
+		});
 		
 		populateDB();
 	}
 	
-	populateDB() {
-		const stringArray = [];
+	async populateDB() {
+		var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
+        const currDate = date + '-' + month + '-' + year;
+		
+		const stringArray = ['I feel great today!', 'Today was not a good day for me.', 'I hung out with my friends today!', 'I got a bad grade on my test today.', 'My dog died today.'];
+
+		for (let i = 0; i < stringArray.length; i++) {
+			const response = await fetch('http://34.121.2.138:8080/emote?sentences=[\"' + stringArray[i] + '\"]', {
+        		method: 'GET'
+        	});
+			const data = await response.json();
+			
+			db.transaction((tx) => {
+				tx.executeSql(
+					'INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+					[stringArray[i], currDate, data.emoji[0][0][0], data.emoji[0][1][0], data.emoji[0][2][0], data.emoji[0][3][0], data.emoji[0][4][0], data.emoji[0][0][1], data.emoji[0][1][1], data.emoji[0][2][1], data.emoji[0][3][1], data.emoji[0][4][1]],
+					null,
+					(tx, err) => {
+						console.log(err);
+					}
+				)
+			},
+			(err) => {
+				console.log(err);
+			},
+			null);
+		}
 	}
 
 
