@@ -11,6 +11,10 @@ export default class HomeScreen extends Component {
     constructor() {
         super();
 
+        this.state = {
+            data: '',
+        };
+
         this.onPress = this.onPress.bind(this);
     }
 
