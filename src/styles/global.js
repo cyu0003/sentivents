@@ -9,7 +9,8 @@ export const globalStyles = StyleSheet.create({
     },
     main: {
         flex: 1,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#1f1f1f',
+        color: '#f0f0f0',
         alignItems: 'center',
         justifyContent: 'center',
     },

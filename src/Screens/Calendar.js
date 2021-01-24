@@ -7,6 +7,7 @@ import {
   RecentDaysCalendarGraph,
   YearCalendarGraph,
 } from "../components/CalendarGraph";
+import { globalStyles } from '../styles/global';
 
 const YearPicker = ({ years, onChangeYear, selectedYear }) => {
   return (
@@ -130,7 +131,7 @@ export default function CalendarTabView({ years = yearsa }) {
   const [year, setYear] = useState(defaultDate.getFullYear());
 
   return (
-    <View>
+    <View style={globalStyles.main}>
       <Picker
         style={{ height: 50, width: 200 }}
         mode={"dropdown"}
