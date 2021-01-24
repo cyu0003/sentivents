@@ -8,6 +8,7 @@ import Home from './Home';
 import Graph from './Graph';
 import Calendar from './Calendar'
 import Diary from './Diary';
+import EditScreen from './EditScreen';
 
 import {globalStyles} from '../styles/global';
 
@@ -21,6 +22,7 @@ export default function Navigator() {
                 <Drawer.Screen name="Graph" component={Graph} />
                 <Drawer.Screen name="Calendar" component={Calendar} />
                 <Drawer.Screen name="Diary" component={Diary} />
+                <Drawer.Screen name="Edit" component={EditScreen} />
             </Drawer.Navigator>
         </NavigationContainer>
     );

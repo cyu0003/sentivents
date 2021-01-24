@@ -96,7 +96,7 @@ export default class Home extends Component {
                     style={globalStyles.textBox}
                 />
                 <Text>{this.state.emojis}</Text>
-                <Button buttonPress={this.buttonPress}/>
+                <Button buttonPress={this.buttonPress} buttonText='Submit' />
             </View>
         );
     }
