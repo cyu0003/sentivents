@@ -28,12 +28,9 @@ export default class HomeScreen extends Component {
         };
 
         this.onPress = this.onPress.bind(this);
-        this.clearDB = this.clearDB.bind(this);
     }
 
     async componentDidMount() {
-        console.log('mount');
-
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
@@ -52,24 +49,10 @@ export default class HomeScreen extends Component {
         for (let i = 0; i < dates.length; i++) {
             data[i] = await dbMethods.getMessages(dates[i]);
         }
-
-        console.log(data);
     }
 
     onPress() {
         this.props.navigation.navigate('Edit')
-    }
-
-    clearDB() {
-        let db = SQLite.openDatabase('UserDatabase.db');
-
-        db.transaction((tx) => {
-            tx.executeSql(
-                'DELETE FROM messages'
-            )
-        });
-
-        console.log('Database cleared!');
     }
 
     render() {
@@ -79,10 +62,6 @@ export default class HomeScreen extends Component {
                 <Button
                     buttonText='New Entry'
                     onPress={this.onPress}
-                />
-                <Button
-                    buttonText='Do not press unless you are Chris lmao'
-                    onPress={this.clearDB}
                 />
             </ScrollView>
         );
