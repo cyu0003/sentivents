@@ -75,6 +75,7 @@ const interpolateColor = (c1, c2, ratio) => {
 
 const CalendarGraph = ({ endDate, numDays, height, labels }) => {
   const moodData = generateData(endDate, numDays);
+  // const moodData =[]
   // endDate.setDate(endDate.getDate()-1)
   return (
     <View>
@@ -84,7 +85,7 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
         endDate={endDate}
         numDays={numDays}
         width={380}
-        height={height || Math.ceil((numDays * 50) / 7 + 50)}
+        height={height || Math.ceil((numDays * 80.0) / 7 + 50)}
         chartConfig={calendarConfig}
         accessor={"mood"}
         horizontal={false}

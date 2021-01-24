@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, TextInput } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import NumberInput from "../components/NumberInput";
+import {
+  MonthCalendarGraph,
+  RecentDaysCalendarGraph,
+  YearCalendarGraph,
+} from "../components/CalendarGraph";
 
 const YearPicker = ({ years, onChangeYear, selectedYear }) => {
   return (
     <Picker
-      style={{ height: 50, width: 100 }}
+      style={{ height: 50, width: 150 }}
       mode={"dropdown"}
-      onValueChange={(itemValue, itemIndex) => onChangeYear(parseInt(itemValue))}
-      selectedValue={selectedYear.toString()}
+      onValueChange={(itemValue, itemIndex) =>
+        onChangeYear(parseInt(itemValue))
+      }
+      selectedValue={selectedYear}
     >
-      {years.map((year,index) => (
-        <Picker.Item label={year.toString()} value={year} key={index}/>
+      {years.map((year, index) => (
+        <Picker.Item label={year.toString()} value={year} key={index} />
       ))}
     </Picker>
   );
@@ -21,20 +28,16 @@ const YearPicker = ({ years, onChangeYear, selectedYear }) => {
 const MonthPicker = ({ months = monthsa, onChangeMonth, selectedMonth }) => {
   return (
     <Picker
-      style={{ height: 50, width: 100 }}
+      style={{ height: 50, width: 150 }}
       mode={"dropdown"}
       onValueChange={(itemValue, itemIndex) => onChangeMonth(itemIndex)}
       selectedValue={selectedMonth}
     >
       {months.map((month, index) => (
-        <Picker.Item label={month} value={index} key={index}/>
+        <Picker.Item label={month} value={index} key={index} />
       ))}
     </Picker>
   );
-};
-
-const DaysPicker = ({ defaultValue, onSubmit }) => {
-  return <NumberInput defaultValue={defaultValue} onSubmit={onSubmit} />;
 };
 
 const yearsa = [2019, 2020, 2021];
@@ -55,10 +58,11 @@ const monthsa = [
 
 const SecondPicker = ({
   viewMode,
-  setRecentDays,
-  recentDays,
+  // setRecentDays,
+  // recentDays,
+  defaultDays,
   years,
-  onSubmit,
+  setSubmit,
   ////////////
   monthYear,
   setMonthYear,
@@ -70,30 +74,57 @@ const SecondPicker = ({
 }) => {
   switch (viewMode) {
     case 0:
-      return <DaysPicker value={recentDays} setValue={setRecentDays} onSubmit={onSubmit}/>;
+      return (
+        <NumberInput
+          defaultValue={defaultDays}
+          // setValue={setRecentDays}
+          setSubmit={setSubmit}
+        />
+      );
     case 1:
       return (
         <>
-          <YearPicker years={years} selectedYear={monthYear} onChangeYear={setMonthYear} />
+          <YearPicker
+            years={years}
+            selectedYear={monthYear}
+            onChangeYear={setMonthYear}
+          />
           <MonthPicker selectedMonth={month} onChangeMonth={setMonth} />
         </>
       );
     case 2:
-      return <YearPicker years={years} selectedYear={year} onChangeYear={setYear} />;
+      return (
+        <YearPicker years={years} selectedYear={year} onChangeYear={setYear} />
+      );
   }
 };
 
+const SelectedCalendar = ({
+  viewMode,
+  submitRecentDays,
+  monthYear,
+  month,
+  year,
+}) => {
+  switch (viewMode) {
+    case 0:
+      return <RecentDaysCalendarGraph days={submitRecentDays} />;
+    case 1:
+      return <MonthCalendarGraph year={monthYear} month={month} />;
+    case 2:
+      return <YearCalendarGraph year={year} />;
+  }
+};
 
-
-const PICKER_LABELS = ["Recent", "Month", "Year"]
+const PICKER_LABELS = ["Recent", "Month", "Year"];
 export default function CalendarTabView({ years = yearsa }) {
   // 0: recent, 1: month, 2: year
   const defaultDate = new Date();
   const [viewMode, setViewMode] = useState(0);
 
   //0 submit is temp/text, submit is used/actual num
-  const [recentDays, setRecentDays] = useState(40);
-  const [submitDays, setSubmitDays] = useState(recentDays)
+  // const [recentDays, setRecentDays] = useState("40");
+  const [submitDays, setSubmitDays] = useState(40);
 
   //1
   const [monthYear, setMonthYear] = useState(defaultDate.getFullYear());
@@ -103,7 +134,7 @@ export default function CalendarTabView({ years = yearsa }) {
   const [year, setYear] = useState(defaultDate.getFullYear());
 
   return (
-    <ScrollView>
+    <View>
       <Picker
         style={{ height: 50, width: 200 }}
         mode={"dropdown"}
@@ -116,9 +147,9 @@ export default function CalendarTabView({ years = yearsa }) {
       </Picker>
       <SecondPicker
         viewMode={viewMode}
-        recentDays={recentDays}
-        setRecentDays={setRecentDays}
-        onSubmit={setSubmitDays}
+        defaultDays={30}
+        // setRecentDays={setRecentDays}
+        setSubmit={setSubmitDays}
         years={years}
         monthYear={monthYear}
         setMonthYear={setMonthYear}
@@ -127,7 +158,15 @@ export default function CalendarTabView({ years = yearsa }) {
         year={year}
         setYear={setYear}
       />
-
-    </ScrollView>
+      <ScrollView>
+        <SelectedCalendar
+          viewMode={viewMode}
+          submitRecentDays={submitDays}
+          monthYear={monthYear}
+          month={month}
+          year={year}
+        />
+      </ScrollView>
+    </View>
   );
 }

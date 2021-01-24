@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { TextInput } from "react-native";
 
-const NumberInput = ({ value, setValue, style, onSubmit }) => {
+const NumberInput = ({ defaultValue, style, setSubmit }) => {
+  const [value, setValue] = useState(defaultValue)
   return (
     <TextInput
       style={style}
@@ -18,8 +19,7 @@ const NumberInput = ({ value, setValue, style, onSubmit }) => {
         setValue(text);
       }}
       value={value}
-      // defaultValue={defaultValue.toString()}
-      onSubmitEditing={onSubmit(value !== "" ? parseInt(value) : 0)}
+      onSubmitEditing={()=>setSubmit(parseInt(value))}
     />
   );
 };
