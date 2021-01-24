@@ -8,7 +8,8 @@ import {
   Dimensions,
 } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
-import emojiList from "../../emojiList"
+import emojiList from "../../emojiList";
+import { interpolateColors } from "./Utils";
 const roundConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
@@ -26,7 +27,7 @@ const roundConfig = {
 
 const data = {
   labels: ["🙁", "😐", "😄"], // optional
-  data: [0,0,0],
+  data: [0, 0, 0],
   colors: ["#754af755", "#56d3e399", "#24e08cff"],
   // colors:["#754af7"]
 };
@@ -53,82 +54,126 @@ const DaySummary = ({
   date = new Date(2021, 0, 17),
 }) => {
   let totalConf = 0;
-  confidences.forEach((c)=>totalConf+=c);
-
+  confidences.forEach((c) => (totalConf += c));
 
   let totalSentiment = 0;
 
   for (const emoji of emojies) {
-    const emojiObj = emojiList.find(item=>item.emoji===emoji);
+    const emojiObj = emojiList.find((item) => item.emoji === emoji);
     if (emojiObj === undefined) {
       continue;
     }
-    totalSentiment+= emojiObj.negative
-    totalSentiment+= emojiObj.neutral
-    totalSentiment+= emojiObj.positive
-    data.data[0] += emojiObj.negative
-    data.data[1] += emojiObj.neutral
-    data.data[2] += emojiObj.positive
+    totalSentiment += emojiObj.negative;
+    totalSentiment += emojiObj.neutral;
+    totalSentiment += emojiObj.positive;
+    data.data[0] += emojiObj.negative;
+    data.data[1] += emojiObj.neutral;
+    data.data[2] += emojiObj.positive;
   }
-  data.data[0] /= totalSentiment
-  data.data[1] /= totalSentiment
-  data.data[2] /= totalSentiment
+  data.data[0] /= totalSentiment;
+  data.data[1] /= totalSentiment;
+  data.data[2] /= totalSentiment;
+
+  const moodRatio = 0.5 + data.data[2] - data.data[1];
 
   return (
     <ScrollView>
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 24,
-          fontWeight: "bold",
-        }}
-      >{`Emotions for ${
-        monthNames[date.getMonth()]
-      }. ${date.getDate()}, ${date.getFullYear()}`}</Text>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-        }}
-      >
-        {emojies.map((emoji, index) => {
-
-          return <View key={index}>
-            <Text style={{ fontSize: 48 }}>{emoji}</Text>
-            <Text style={{ fontSize: 24, textAlign: "center" }}>
-              {Math.floor(confidences[index]*100/totalConf)}
-            </Text>
-          </View>;
-        })}
+      <View style={{ marginBottom: 24 }}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >{`Emotions for ${
+          monthNames[date.getMonth()]
+        }. ${date.getDate()}, ${date.getFullYear()}`}</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          {emojies.map((emoji, index) => {
+            return (
+              <View key={index}>
+                <Text style={{ fontSize: 48 }}>{emoji}</Text>
+                <Text style={{ fontSize: 24, textAlign: "center" }}>
+                  {Math.floor((confidences[index] * 100) / totalConf)}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
       </View>
+      <View style={{ marginBottom: 24 }}>
+        <Text style={{ fontSize: 24, textAlign: "center", fontWeight: "bold" }}>
+          Estimated Mood Color
+        </Text>
+        <View style={{ justifyContent: "center", flexDirection: "row" }}>
+          <View style={{ justifyContent: "space-evenly", marginRight: 16 }}>
+            <View
+              style={{
+                height: 50,
+                width: 50,
+                backgroundColor: "#2afb53",
+                borderRadius: 8,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 24 }}>😄</Text>
+            </View>
+            <View
+              style={{
+                height: 50,
+                width: 50,
+                backgroundColor: "#754af7",
+                borderRadius: 8,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 24 }}>🙁</Text>
+            </View>
+          </View>
 
-      {/* <View style={{
-        height:200,
-        width:200,
-        backgroundColor:
-      }}>
-
-      </View> */}
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 24,
-          fontWeight: "bold",
-        }}
-      >
-        Sentiment Breakdown
-      </Text>
-      <ProgressChart
-        chartConfig={roundConfig}
-        width={screenWidth}
-        height={220}
-        strokeWidth={20}
-        radius={32}
-        data={data}
-        withCustomBarColorFromData={true}
-        // center={[1,2]}
-      />
+          <View
+            style={{
+              height: 200,
+              width: 200,
+              backgroundColor: interpolateColors(
+                "#2afb53",
+                "#754af7",
+                moodRatio
+              ),
+              borderRadius: 24,
+            }}
+          ></View>
+        </View>
+      </View>
+      <View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >
+          Sentiment Breakdown
+        </Text>
+        <ProgressChart
+          chartConfig={roundConfig}
+          width={screenWidth}
+          height={220}
+          strokeWidth={20}
+          radius={32}
+          data={data}
+          withCustomBarColorFromData={true}
+          // center={[1,2]}
+        />
+      </View>
     </ScrollView>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-
+import {interpolateColors} from "./Utils"
 import {
   // LineChart,
   // BarChart,
@@ -39,38 +39,10 @@ const generateData = (endDate, numDays) => {
 };
 
 const calendarConfig = {
-  color: (opacity = 1) => interpolateColor("2afb53", "754af7", opacity),
+  color: (opacity = 1) => interpolateColors("#2afb53", "#754af7", opacity),
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
   propsForLabels:{fontWeight:"bold", fontSize:16, fill:"#222222"}
-};
-
-const interpolateColor = (c1, c2, ratio) => {
-  // min ratio from react-native-chart-kit library
-  if (ratio === 0.15) {
-    return "#11111111";
-  }
-  // normalize ratio, since min is 0.2 from react-native-chart-kit
-  ratio = (ratio - 0.2) / 0.8;
-
-  const hex = function (x) {
-    x = x.toString(16);
-    return x.length == 1 ? "0" + x : x;
-  };
-
-  const r = Math.ceil(
-    parseInt(c1.substring(0, 2), 16) * ratio +
-      parseInt(c2.substring(0, 2), 16) * (1 - ratio)
-  );
-  const g = Math.ceil(
-    parseInt(c1.substring(2, 4), 16) * ratio +
-      parseInt(c2.substring(2, 4), 16) * (1 - ratio)
-  );
-  const b = Math.ceil(
-    parseInt(c1.substring(4, 6), 16) * ratio +
-      parseInt(c2.substring(4, 6), 16) * (1 - ratio)
-  );
-  return `#${hex(r)}${hex(g)}${hex(b)}FF`;
 };
 
 const CalendarGraph = ({ endDate, numDays, height, labels }) => {
