@@ -74,8 +74,7 @@ const TimeSummary = ({
   data.data[1] /= totalSentiment;
   data.data[2] /= totalSentiment;
 
-  const moodRatio = 0.5 + data.data[2] - data.data[1];
-
+  // const moodRatio = 0.5 + data.data[2] - data.data[1];
   return (
     <ScrollView>
       <CardContainer>

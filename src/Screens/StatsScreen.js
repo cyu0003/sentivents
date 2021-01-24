@@ -1,67 +1,107 @@
-import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
-import * as SQLite from 'expo-sqlite';
+import React, { Component } from "react";
+import { ScrollView, Text } from "react-native";
+import * as SQLite from "expo-sqlite";
 
-import DaySummary from '../components/DaySummary';
-import Button from '../components/Button';
+import DaySummary from "../components/DaySummary";
+import Button from "../components/Button";
 
-import { globalStyles } from '../styles/global';
+import { globalStyles } from "../styles/global";
 
 export default class StatsScreen extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            date: '',
-            data: this.props.route.params.data,
-            text: this.props.route.params.text,
-        };
+    this.state = {
+      date: "",
+      data: this.props.route.params.data,
+      text: this.props.route.params.text,
+    };
 
-        this.onPress = this.onPress.bind(this);
-    }
+    this.onPress = this.onPress.bind(this);
+  }
 
+<<<<<<< HEAD
+  componentDidMount() {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    const currDate = date + "-" + month + "-" + year;
+=======
     componentDidMount() {
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
         const currDate = year + '-' + month + '-' + date;
+>>>>>>> ec802c924d8c2b3d070f0f28559260163a7afe8e
 
-        this.setState({ date: currDate });
-        this.setState({ data: this.props.route.params.data,
-            text: this.props.route.params.text });
-    }
+    this.setState({ date: currDate });
+    this.setState({
+      data: this.props.route.params.data,
+      text: this.props.route.params.text,
+    });
+  }
 
-    onPress() {
+  onPress() {
+    var db = SQLite.openDatabase("UserDatabase.db");
 
-        var db = SQLite.openDatabase('UserDatabase.db');
-
-        db.transaction((tx) => {
-            tx.executeSql(
-                'INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [this.state.text, this.state.date, this.state.data.emoji[0][0][0], this.state.data.emoji[0][1][0], this.state.data.emoji[0][2][0], this.state.data.emoji[0][3][0], this.state.data.emoji[0][4][0], this.state.data.emoji[0][0][1], this.state.data.emoji[0][1][1], this.state.data.emoji[0][2][1], this.state.data.emoji[0][3][1], this.state.data.emoji[0][4][1]],
-                null,
-                (tx, err) => {
-                    console.log(err);
-                }
-            )
-        },
-        (err) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(
+          "INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          [
+            this.state.text,
+            this.state.date,
+            this.state.data.emoji[0][0][0],
+            this.state.data.emoji[0][1][0],
+            this.state.data.emoji[0][2][0],
+            this.state.data.emoji[0][3][0],
+            this.state.data.emoji[0][4][0],
+            this.state.data.emoji[0][0][1],
+            this.state.data.emoji[0][1][1],
+            this.state.data.emoji[0][2][1],
+            this.state.data.emoji[0][3][1],
+            this.state.data.emoji[0][4][1],
+          ],
+          null,
+          (tx, err) => {
             console.log(err);
-        },
-        null);
-
-        /* maybe add a confirmation alert? */
-        
-        this.props.navigation.navigate('Home');
-    }
-
-    render() {
-        return (
-            <ScrollView contentContainerStyle={globalStyles.main}>
-                <DaySummary/>
-                <Text>{JSON.stringify(this.state.data)}</Text>
-                <Button onPress={this.onPress} buttonText='Submit' />
-            </ScrollView>
+          }
         );
-    }
+      },
+      (err) => {
+        console.log(err);
+      },
+      null
+    );
+
+    /* maybe add a confirmation alert? */
+
+    this.props.navigation.navigate("Home");
+  }
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={globalStyles.main}>
+        <DaySummary
+          date={new Date()}
+          emojies={[
+            this.state.data.emoji[0][0][0],
+            this.state.data.emoji[0][1][0],
+            this.state.data.emoji[0][2][0],
+            this.state.data.emoji[0][3][0],
+            this.state.data.emoji[0][4][0],
+          ]}
+          confidences={[
+            this.state.data.emoji[0][0][1],
+            this.state.data.emoji[0][1][1],
+            this.state.data.emoji[0][2][1],
+            this.state.data.emoji[0][3][1],
+            this.state.data.emoji[0][4][1],
+          ]}
+        />
+        {/* <Text>{JSON.stringify(this.state.data)}</Text> */}
+        <Button onPress={this.onPress} buttonText="Submit" />
+      </ScrollView>
+    );
+  }
 }
