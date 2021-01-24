@@ -5,7 +5,6 @@ import * as SQLite from 'expo-sqlite';
 import Button from '../components/Button';
 import Calendar from '../components/Calendar';
 
-import * as SQLite from 'expo-sqlite';
 import { globalStyles } from '../styles/global';
 
 export default class HomeScreen extends Component {
