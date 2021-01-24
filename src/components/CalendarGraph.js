@@ -58,7 +58,7 @@ const CalendarGraph = ({ endDate, numDays, height, labels, fill }) => {
         endDate={endDate}
         numDays={numDays}
         width={380}
-        height={height || Math.ceil((numDays * 80.0) / 7 + 50)}
+        height={height || Math.ceil((numDays * 55.0) / 7 + 50)}
         chartConfig={calendarConfig}
         accessor={"mood"}
         horizontal={false}
