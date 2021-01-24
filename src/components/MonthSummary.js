@@ -85,9 +85,7 @@ const MonthSummary = ({
             textAlign: "center",
             marginBottom:8
           }}
-        >{`Emotions for ${
-          monthNames[date.getMonth()]
-        }. ${date.getDate()}, ${date.getFullYear()}`}</Text>
+        >Your Top Emotions</Text>
         <View
           style={{
             display: "flex",
@@ -123,9 +121,9 @@ const MonthSummary = ({
             marginBottom:8
           }}
         >
-          Sentiment Breakdown
+          Recent Activity
         </Text>
-        <MoodLineChart/>
+        <RecentDaysCalendarGraph days={7} fill={true}/>
       </CardContainer>
       <CardContainer>
         <Text
@@ -134,10 +132,10 @@ const MonthSummary = ({
             ...globalStyles.textLabel,
             marginBottom:8
           }}
-        >
+          >
           Sentiment Breakdown
         </Text>
-        <RecentDaysCalendarGraph recentDays={7}/>
+          <MoodLineChart/>
       </CardContainer>
     </ScrollView>
   );

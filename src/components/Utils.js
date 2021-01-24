@@ -3,7 +3,7 @@ export const interpolateColors = (c1, c2, ratio, floor=0) => {
   c2 = c2.substring(1)
   // min ratio from react-native-chart-kit library
   if (ratio === floor) {
-    return "#505066";
+    return "#3a3a4a";
   }
   // normalize ratio, since min is 0.2 from react-native-chart-kit
   ratio = (ratio - 0.2) / 0.8;

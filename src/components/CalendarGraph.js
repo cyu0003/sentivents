@@ -46,7 +46,7 @@ const calendarConfig = {
   propsForLabels:{fontWeight:"bold", fontSize:16, fill:globalStyles.text.color}
 };
 
-const CalendarGraph = ({ endDate, numDays, height, labels }) => {
+const CalendarGraph = ({ endDate, numDays, height, labels, fill }) => {
   const moodData = generateData(endDate, numDays);
   // const moodData =[]
   // endDate.setDate(endDate.getDate()-1)
@@ -65,6 +65,7 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
         squareSize={42}
         gutterSize={5}
         showMonthLabels={labels}
+        showOutOfRangeDays={fill}
         // radius={16}
       />
     // </View>
@@ -79,8 +80,8 @@ export const MonthCalendarGraph = ({ year, month }) => {
   );
 };
 
-export const RecentDaysCalendarGraph = ({ days }) => {
-  return <CalendarGraph endDate={new Date()} numDays={days} labels={true}/>;
+export const RecentDaysCalendarGraph = ({ days, fill }) => {
+  return <CalendarGraph endDate={new Date()} numDays={days} labels={!fill} fill={fill}/>;
 };
 
 export const YearCalendarGraph = ({ year }) => {
