@@ -7,6 +7,8 @@ import AppLoading from 'expo-app-loading';
 
 import Navigator from './src/Screens/Navigator';
 
+//import { globalStyles } from './src/styles/global'
+
 export default class App extends Component {
     constructor() {
         super();

@@ -11,8 +11,6 @@ export const globalStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#1f1f1f',
         color: '#f0f0f0',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     textBox: {
         borderColor:'#000',

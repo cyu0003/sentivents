@@ -5,6 +5,8 @@ import { TextInput } from 'react-native-gesture-handler';
 import Button from '../components/Button';
 import Calendar from '../components/Calendar';
 
+import { globalStyles } from '../styles/global'
+
 export default class HomeScreen extends Component {
     constructor() {
         super();
@@ -18,7 +20,7 @@ export default class HomeScreen extends Component {
 
     render() {
         return(
-            <ScrollView>
+            <ScrollView style={globalStyles.main}>
                 <Calendar />
                 <Button
                     buttonText='Create New Log'
