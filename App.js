@@ -5,6 +5,7 @@ import * as SQLite from 'expo-sqlite';
 import AppLoading from 'expo-app-loading';
 
 import Navigator from './src/Navigator';
+import { TapGestureHandler } from 'react-native-gesture-handler';
 
 //import { globalStyles } from './src/styles/global'
 
@@ -13,7 +14,10 @@ export default class App extends Component {
         super();
         this.state = {
             isReady: false,
-        }
+		}
+		
+		this.asyncSetUp = this.asyncSetUp.bind(this);
+		this.populateDB = this.populateDB.bind(this);
     }
 
     async asyncSetUp() {
@@ -23,8 +27,14 @@ export default class App extends Component {
             tx.executeSql(
                 'CREATE TABLE IF NOT EXISTS messages (msg TEXT, date TEXT, emoji1 TEXT, emoji2 TEXT, emoji3 TEXT, emoji4 TEXT, emoji5 TEXT, cv1 REAL, cv2 REAL, cv3 REAL, cv4 REAL, cv5 REAL)', [], null, null
             )
-        })
-    }
+		})
+		
+		populateDB();
+	}
+	
+	populateDB() {
+		const stringArray = [];
+	}
 
 
     render() {

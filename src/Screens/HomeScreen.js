@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
+import * as SQLite from 'expo-sqlite';
 
 import Button from '../components/Button';
 import Calendar from '../components/Calendar';
