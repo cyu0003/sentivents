@@ -8,6 +8,8 @@ import {
 import { LineGraph } from "../components/LineGraph";
 import { Picker } from "@react-native-picker/picker";
 
+import DaySummary from "./DaySummary"
+
 const styles = StyleSheet.create({
     cal:{
 
@@ -24,6 +26,7 @@ export default class Graph extends Component {
           <Picker.Item label="JavaScript" value="js" />
         </Picker>
         <Text>This is where a graph goes</Text>
+        <DaySummary/>
         <LineGraph />
         <MonthCalendarGraph year={2021} month={0} />
         <RecentDaysCalendarGraph days={69} />

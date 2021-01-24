@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { TextInput } from "react-native";
 
 const NumberInput = ({ defaultValue, style, setSubmit }) => {
-  const [value, setValue] = useState(defaultValue)
+  const [value, setValue] = useState(defaultValue.toString())
   return (
     <TextInput
       style={style}
