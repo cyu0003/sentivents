@@ -11,7 +11,7 @@ import { ProgressChart } from "react-native-chart-kit";
 import { Card } from "react-native-paper";
 import emojiList from "../../emojiList";
 import { globalStyles } from "../styles/global";
-import { MoodLineChart} from "../components/LineGraph"
+import { MoodLineChart} from "./LineGraph"
 import {
   RecentDaysCalendarGraph,
 } from "./CalendarGraph";
@@ -48,7 +48,7 @@ const monthNames = [
   "Nov",
   "Dev",
 ];
-const MonthSummary = ({
+const TimeSummary = ({
   emojies = ["😭", "🤡", "😈", "😂", "😀"],
   confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
   date = new Date(2021, 0, 17),
@@ -85,9 +85,7 @@ const MonthSummary = ({
             textAlign: "center",
             marginBottom:8
           }}
-        >{`Emotions for ${
-          monthNames[date.getMonth()]
-        }. ${date.getDate()}, ${date.getFullYear()}`}</Text>
+        >Your Top Emotions</Text>
         <View
           style={{
             display: "flex",
@@ -123,9 +121,9 @@ const MonthSummary = ({
             marginBottom:8
           }}
         >
-          Sentiment Breakdown
+          Recent Activity
         </Text>
-        <MoodLineChart/>
+        <RecentDaysCalendarGraph days={7} fill={true}/>
       </CardContainer>
       <CardContainer>
         <Text
@@ -134,13 +132,13 @@ const MonthSummary = ({
             ...globalStyles.textLabel,
             marginBottom:8
           }}
-        >
-          Sentiment Breakdown
+          >
+          Sentiment Over Time
         </Text>
-        <RecentDaysCalendarGraph recentDays={7}/>
+          <MoodLineChart/>
       </CardContainer>
     </ScrollView>
   );
 };
 
-export default MonthSummary;
+export default TimeSummary;

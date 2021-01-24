@@ -31,7 +31,7 @@ const roundConfig = {
 const data = {
   labels: ["🙁", "😐", "😄"], // optional
   data: [0, 0, 0],
-  colors: ["#754af755", "#56d3e399", "#24e08cff"],
+  colors: ["#c9308c", "#56d3e399", "#24e08cff"],
   // colors:["#754af7"]
 };
 
