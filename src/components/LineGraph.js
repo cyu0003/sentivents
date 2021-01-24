@@ -16,41 +16,39 @@ const lineConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
   color: (opacity = 1) => {
-    // console.log(opacity);
-    // if (opacity===0.2) {
-    //   return "#ae3edd"
-    // }
     return `rgba(0, 0, 0, ${opacity})`;
   },
 };
 
-export const LineGraph = ({}) => {
+const testDate1 = [3,5,6,1,3,4,7]
+const testDate2 = [1,5,4,3,6,7,8]
+const testDate3 = [8,6,5,4,3,6,2]
+export const LineGraph = ({dataPos=testDate1, dataNeu=testDate2, dataNeg=testDate3}) => {
+  const today = new Date()
+  today.setDate(today.getDate()-7)
+  const dayLabels=[]
+  for (let i = 0; i < 7; i++) {
+    today.setDate(today.getDate()+1)
+    dayLabels.push(`${today.getMonth()+1}/${today.getDate()}`)
+  }
   return (
-    <View>
+    <View style={{alignItems:"center"}}>
       <LineChart
+      // withHorizontalLabels={false}
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: dayLabels,
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
-              color:()=>"#aeaeff"
+              data: dataPos,
+              color:()=>"#24e08cff"
             },
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
+              data: dataNeu,
+              color:()=>"#56d3e399"
+            },
+            {
+              data: dataNeg,
+              color:()=>"#c9308c"
             },
           ],
         }}

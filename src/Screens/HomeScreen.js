@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
 import Button from '../components/Button';
-import MonthSummary from '../components/MonthSummary';
+import TimeSummary from '../components/TimeSummary';
 
 import { globalStyles } from '../styles/global';
 
@@ -66,7 +66,7 @@ export default class HomeScreen extends Component {
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
-                <MonthSummary/>
+                <TimeSummary/>
                 <Button
                     buttonText='Create New Log'
                     onPress={this.onPress}
