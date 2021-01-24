@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import Home from './Home';
 import Graph from './Graph';
-import Calendar from './Calendar'
+import Calendar from '../components/Calendar'
 import Diary from './Diary';
 import EditScreen from './EditScreen';
 
