@@ -5,7 +5,7 @@ import * as SQLite from 'expo-sqlite';
 import Button from '../components/Button';
 import Calendar from './Calendar';
 
-import { globalStyles } from '../styles/global'
+import { globalStyles } from '../styles/global';
 
 export default class HomeScreen extends Component {
     constructor() {
@@ -35,11 +35,13 @@ export default class HomeScreen extends Component {
                 'SELECT * from messages',
                 [],
                 (tx, results) => {
+                    var data = results.rows.array;
                     var len = results.rows.length;
+                    console.log(results.rows.array);
                     console.log(len);
 
                     if (len > 0) {
-                        this.setState({ data: JSON.stringify(results) });
+                        this.setState({ data: data[0] }); /* this is the first row returned by the database */
                     } else {
                         this.setState({ data: ["uhhhhh there's nothing lmao"] });
                         alert('no messages');
@@ -63,7 +65,6 @@ export default class HomeScreen extends Component {
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
-                <Calendar />
                 <Button
                     buttonText='Create New Log'
                     onPress={this.onPress}

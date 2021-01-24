@@ -53,7 +53,7 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
   return (
     // <View>
       <ContributionGraph
-        style={{ alignItems:"center"}}
+        style={{ alignItems:"center", borderRadius:60}}
         values={moodData}
         endDate={endDate}
         numDays={numDays}
@@ -63,8 +63,9 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
         accessor={"mood"}
         horizontal={false}
         squareSize={42}
-        gutterSize={4}
+        gutterSize={5}
         showMonthLabels={labels}
+        // radius={16}
       />
     // </View>
   );

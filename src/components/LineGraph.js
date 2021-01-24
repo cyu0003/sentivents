@@ -64,11 +64,13 @@ export const LineGraph = ({}) => {
 };
 
 export const EmojiLineChart=({})=>{
+  return <LineChart/>
   // get data up to the last 12 months
   // add many datasets
 }
 
 export const MoodLineChart=({})=>{
+  return <LineChart/>
   // new Date().getMonth
   // get data up to the last 12 months
 }

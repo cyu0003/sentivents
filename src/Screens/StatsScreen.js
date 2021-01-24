@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Text } from 'react-native';
-
 import * as SQLite from 'expo-sqlite';
+
 import DaySummary from '../components/DaySummary';
 import Button from '../components/Button';
 
@@ -28,7 +28,7 @@ export default class StatsScreen extends Component {
 
         this.setState({ date: currDate });
         this.setState({ data: this.props.route.params.data,
-            text: this.props.route.params.text })
+            text: this.props.route.params.text });
     }
 
     onPress() {

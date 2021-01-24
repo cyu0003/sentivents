@@ -11,22 +11,11 @@ import { ProgressChart } from "react-native-chart-kit";
 import { Card } from "react-native-paper";
 import emojiList from "../../emojiList";
 import { globalStyles } from "../styles/global";
-import { interpolateColors } from "./Utils";
-const roundConfig = {
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientToOpacity: 0,
-  propsForLabels: {
-    ...globalStyles.textLabel,
-    fill:globalStyles.textLabel.color
-  },
-  color: (opacity = 1) => {
-    // console.log(opacity);
-    // if (opacity===0.2) {
-    //   return "#ae3edd"
-    // }
-    return `rgba(0, 0, 0, ${opacity})`;
-  },
-};
+import { MoodLineChart} from "../components/LineGraph"
+import {
+  RecentDaysCalendarGraph,
+} from "./CalendarGraph";
+
 
 const data = {
   labels: ["🙁", "😐", "😄"], // optional
@@ -59,7 +48,7 @@ const monthNames = [
   "Nov",
   "Dev",
 ];
-const DaySummary = ({
+const MonthSummary = ({
   emojies = ["😭", "🤡", "😈", "😂", "😀"],
   confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
   date = new Date(2021, 0, 17),
@@ -129,58 +118,14 @@ const DaySummary = ({
       <CardContainer>
         <Text
           style={{
-            ...globalStyles.textLabel,
             textAlign: "center",
+            ...globalStyles.textLabel,
             marginBottom:8
           }}
         >
-          Estimated Mood Color
+          Sentiment Breakdown
         </Text>
-        <View style={{ justifyContent: "center", flexDirection: "row" }}>
-          <View style={{ justifyContent: "space-evenly", marginRight: 16 }}>
-            <View
-              style={{
-                height: 50,
-                width: 50,
-                backgroundColor: "#2afb53",
-                borderRadius: 8,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ ...globalStyles.textLabel, fontSize: 24 }}>
-                😄
-              </Text>
-            </View>
-            <View
-              style={{
-                height: 50,
-                width: 50,
-                backgroundColor: "#754af7",
-                borderRadius: 8,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ ...globalStyles.textLabel, fontSize: 24 }}>
-                🙁
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              height: 200,
-              width: 200,
-              backgroundColor: interpolateColors(
-                "#2afb53",
-                "#754af7",
-                moodRatio
-              ),
-              borderRadius: 24,
-            }}
-          ></View>
-        </View>
+        <MoodLineChart/>
       </CardContainer>
       <CardContainer>
         <Text
@@ -192,19 +137,10 @@ const DaySummary = ({
         >
           Sentiment Breakdown
         </Text>
-        <ProgressChart
-          chartConfig={roundConfig}
-          width={360}
-          height={220}
-          strokeWidth={20}
-          radius={32}
-          data={data}
-          withCustomBarColorFromData={true}
-          // center={[1,2]}
-        />
+        <RecentDaysCalendarGraph recentDays={7}/>
       </CardContainer>
     </ScrollView>
   );
 };
 
-export default DaySummary;
+export default MonthSummary;
