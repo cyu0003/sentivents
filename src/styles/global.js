@@ -19,8 +19,10 @@ export const globalStyles = StyleSheet.create({
         height: '60%',
         width: '80%',
     },
-    navStyle: {
+    drawerStyle: {
         backgroundColor: '#000',
-        color: '#fff',
+    },
+    drawerTabStyle: {
+        backgroundColor: '#0f0f0f'
     },
   });
