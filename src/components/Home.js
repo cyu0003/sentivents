@@ -3,7 +3,7 @@ import { View, Text, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
 import * as SQLite from 'expo-sqlite';
 
-import Button from '../components/Button';
+import Button from './Button';
 
 export default class Home extends Component {
     constructor() {
