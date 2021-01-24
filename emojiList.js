@@ -1,4 +1,4 @@
-[
+export default EmojiList = [
   {
     emoji: "😂",
     unicode: "0x1f602",
