@@ -57,36 +57,27 @@ export default class Home extends Component {
 
         console.log('time to try database functionality');
 
-        var db = SQLite.openDatabase({ name: 'UserDatabase.db' });
+        var db = SQLite.openDatabase('UserDatabase.db');
 
         db.transaction((tx) => {
             tx.executeSql(
                 'INSERT INTO messages (msg, date, emoji1, emoji2, emoji3, emoji4, emoji5, cv1, cv2, cv3, cv4, cv5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [this.state.text, this.state.date, this.state.data.emoji[0][0][0], this.state.data.emoji[0][1][0], this.state.data.emoji[0][2][0], this.state.data.emoji[0][3][0], this.state.data.emoji[0][4][0], this.state.data.emoji[0][0][1], this.state.data.emoji[0][1][1], this.state.data.emoji[0][2][1], this.state.data.emoji[0][3][1], this.state.data.emoji[0][4][1]],
-                (tx, results) => {
-                    console.log('results', results.rowsAffected);
-                    if (results.rowsAffected > 0) {
-                        Alert.alert(
-                            'Success',
-                            [
-                                {
-                                    text: 'ok',
-                                },
-                            ],
-                            { cancelable: true }
-                        )
-                    } else alert('failed lmao');
+                null,
+                (tx, err) => {
+                    console.log(err);
                 }
             )
-        });
-        
-        console.log('end of query');
+        },
+        (err) => {
+            console.log(err);
+        },
+        null);
 
         this.setState({ text: null });
     }
 
     submitButton() {
-        
     }
 
     render() {
@@ -103,7 +94,6 @@ export default class Home extends Component {
                 <Text>{this.state.text}</Text>
                 <Button buttonPress={this.buttonPress}/>
             </View>
-            
         );
     }
 }

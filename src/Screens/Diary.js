@@ -9,32 +9,42 @@ export default class Diary extends Component {
         super();
 
         this.state ={
-            data: [],
+            data: ["something should go here, right?"]
         };
     }
 
-    componentDidMount() {
+    getData() {
         console.log('tried to open db')
-        let db = SQLite.openDatabase({ name: 'UserDatabase.db' });
-        console.log(db)
-        
-        db.transaction((tx) => {
-            'SELECT * from messages',
-        (tx, results) => {
-            var len = results.rows.length;
-            console.log(len);
 
-            if (len > 0) {
-                this.setState({ data: results})
-            } else {
-                alert('no messages');
-            }
-        }
+        let db = SQLite.openDatabase('UserDatabase.db');
+
+        db.transaction((tx) => {
+            tx.executeSql(
+                'SELECT * from messages',
+                [],
+                (tx, results) => {
+                    var len = results.rows.length;
+                    console.log(len);
+
+                    if (len > 0) {
+                        this.setState({ data: JSON.stringify(results) });
+                    } else {
+                        this.setState({ data: ["uhhhhh there's nothing lmao"] });
+                        alert('no messages');
+                    }
+                },
+                (tx, err) => {
+                    console.log(err);
+                }
+            )
         });
+
         console.log('mounted');
     }
 
-
+    componentDidMount() {
+        this.getData();
+    }
 
     render() {
         return (
