@@ -50,7 +50,7 @@ const generateData = async (endDate, numDays) => {
     }
 
     dateFormatted = `${currDate.getFullYear()}-${monthString}-${dayString}`
-    console.log(dateFormatted)
+    // console.log(dateFormatted)
     let dbObj = await dbMethods.getMessages(
       searchFormat
     );
@@ -67,8 +67,8 @@ const generateData = async (endDate, numDays) => {
       dataList.push({date:dateFormatted, mood:(sum/dbObj.length)*100})
     }
   }
-  console.log("datalist ----------------------")
-  console.log(dataList)
+  // console.log("datalist ----------------------")
+  // console.log(dataList)
   return dataList;
 };
 
@@ -92,8 +92,8 @@ const CalendarGraph = ({ endDate, numDays, height, labels, fill }) => {
 
   useEffect(()=>{
     generateData(endDate, numDays).then((result)=>{
-      console.log("gen data then")
-      console.log(result)
+      // console.log("gen data then")
+      // console.log(result)
       setMoodData(result)
     });
   },[setMoodData])
