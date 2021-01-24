@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { openDatabase } from 'react-native-sqlite-storage';
 import * as SQLite from 'expo-sqlite';
 
 import AppLoading from 'expo-app-loading';
