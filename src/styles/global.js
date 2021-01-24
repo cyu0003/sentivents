@@ -8,6 +8,7 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 10,
         width: '60%',
         left: '20%',
+        marginTop: '5%',
     },
     main: {
         flex: 1,
@@ -17,8 +18,6 @@ export const globalStyles = StyleSheet.create({
     textBox: {
         textAlign: 'left',
         justifyContent: 'flex-start',
-        borderColor:'#000',
-        borderWidth: 1,
         height: '60%',
         width: '80%',
         left: '10%',
@@ -43,6 +42,14 @@ export const globalStyles = StyleSheet.create({
         marginTop:12,
         padding:8
     },
+    tertiary: {
+        backgroundColor:"#505066",
+        borderRadius:8,
+        marginRight:10,
+        marginLeft:10,
+        marginTop:10,
+        padding:8
+    },
     picker:{
         backgroundColor:"#505066",
         width:150,
@@ -54,5 +61,13 @@ export const globalStyles = StyleSheet.create({
         color: '#f0f0f0',
         fontSize:16,
         fontWeight:"bold",
+    },
+    tabNavigation:{
+        left: 0,
+        width: '40%',
+        height: '20%',
+        bottom: 0,
+        flexDirection: 'row',
+        flex: 1,
     }
   });

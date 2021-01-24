@@ -7,6 +7,8 @@ import TimeSummary from '../components/TimeSummary';
 
 import { globalStyles } from '../styles/global';
 
+import TabNavigation from '../components/TabNavigation'
+
 export default class HomeScreen extends Component {
     constructor() {
         super();
@@ -81,16 +83,14 @@ export default class HomeScreen extends Component {
             <ScrollView contentContainerStyle={globalStyles.main}>
                 <TimeSummary/>
                 <Button
-                    buttonText='Create New Log'
-                    onPress={this.onPress}
-                />
-                <Button
-                    buttonText='View Calendar'
-                    onPress={this.onPress2}
-                />
-                <Button
                     buttonText='Do not press unless you are Chris lmao'
                     onPress={this.clearDB}
+                />
+                <TabNavigation 
+                    buttonText='Home'
+                    buttonText2='Calendar'
+                    onPress={this.onPress}
+                    onPress2={this.onPress2}
                 />
             </ScrollView>
         );
