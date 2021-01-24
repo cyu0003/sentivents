@@ -25,6 +25,7 @@ export default class HomeScreen extends Component {
         };
 
         this.onPress = this.onPress.bind(this);
+        this.onPress2 = this.onPress2.bind(this);
     }
 
     componentDidMount() {
