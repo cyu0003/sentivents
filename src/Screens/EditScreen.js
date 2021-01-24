@@ -35,7 +35,7 @@ export default class EditScreen extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView contentContainerStyle={globalStyles.main}>
                 <TextInput
                     autoFocus={true}
                     maxLength={1000}

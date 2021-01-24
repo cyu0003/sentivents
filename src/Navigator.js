@@ -25,17 +25,25 @@ export default function Navigator() {
                     name="Home"
                     component={HomeScreen}
                     options={{
-                    headerTintColor: 'white',
+                    headerTintColor: '#f0f0f0',
                     headerStyle: { backgroundColor: '#6545D8' },
                     }}
                 />
                 <Stack.Screen
                     name="Edit"
                     component={EditScreen}
+                    options={{
+                    headerTintColor: '#f0f0f0',
+                    headerStyle: { backgroundColor: '#6545D8' },
+                    }}
                 />
                 <Stack.Screen
                     name="Stats"
                     component={StatsScreen}
+                    options={{
+                    headerTintColor: '#f0f0f0',
+                    headerStyle: { backgroundColor: '#6545D8' },
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

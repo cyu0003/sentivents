@@ -26,4 +26,7 @@ export const globalStyles = StyleSheet.create({
     drawerTabStyle: {
         backgroundColor: '#0f0f0f'
     },
+    text: {
+        color: '#f0f0f0',
+    }
   });
