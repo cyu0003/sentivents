@@ -58,8 +58,6 @@ const monthsa = [
 
 const SecondPicker = ({
   viewMode,
-  // setRecentDays,
-  // recentDays,
   defaultDays,
   years,
   setSubmit,
@@ -77,7 +75,6 @@ const SecondPicker = ({
       return (
         <NumberInput
           defaultValue={defaultDays}
-          // setValue={setRecentDays}
           setSubmit={setSubmit}
         />
       );
@@ -101,14 +98,14 @@ const SecondPicker = ({
 
 const SelectedCalendar = ({
   viewMode,
-  submitRecentDays,
+  recentDays,
   monthYear,
   month,
   year,
 }) => {
   switch (viewMode) {
     case 0:
-      return <RecentDaysCalendarGraph days={submitRecentDays} />;
+      return <RecentDaysCalendarGraph days={recentDays} />;
     case 1:
       return <MonthCalendarGraph year={monthYear} month={month} />;
     case 2:
@@ -123,8 +120,7 @@ export default function CalendarTabView({ years = yearsa }) {
   const [viewMode, setViewMode] = useState(0);
 
   //0 submit is temp/text, submit is used/actual num
-  // const [recentDays, setRecentDays] = useState("40");
-  const [submitDays, setSubmitDays] = useState(40);
+  const [recentDays, setRecentDays] = useState(40);
 
   //1
   const [monthYear, setMonthYear] = useState(defaultDate.getFullYear());
@@ -148,8 +144,7 @@ export default function CalendarTabView({ years = yearsa }) {
       <SecondPicker
         viewMode={viewMode}
         defaultDays={30}
-        // setRecentDays={setRecentDays}
-        setSubmit={setSubmitDays}
+        setSubmit={setRecentDays}
         years={years}
         monthYear={monthYear}
         setMonthYear={setMonthYear}
@@ -161,7 +156,7 @@ export default function CalendarTabView({ years = yearsa }) {
       <ScrollView>
         <SelectedCalendar
           viewMode={viewMode}
-          submitRecentDays={submitDays}
+          recentDays={recentDays}
           monthYear={monthYear}
           month={month}
           year={year}
