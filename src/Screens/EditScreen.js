@@ -11,6 +11,7 @@ export default class EditScreen extends Component {
 
         this.state = {
             text: '',
+            data: '',
         };
 
         this.onPress = this.onPress.bind(this);
