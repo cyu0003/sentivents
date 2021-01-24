@@ -45,10 +45,10 @@ export const globalStyles = StyleSheet.create({
     tertiary: {
         backgroundColor:"#505066",
         borderRadius:8,
-        marginRight:10,
-        marginLeft:10,
-        marginTop:10,
-        padding:8
+        marginRight:16,
+        marginLeft:16,
+        marginTop:16,
+        padding:0
     },
     picker:{
         backgroundColor:"#505066",
