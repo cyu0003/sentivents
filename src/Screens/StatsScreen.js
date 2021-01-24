@@ -20,19 +20,11 @@ export default class StatsScreen extends Component {
     this.onPress = this.onPress.bind(this);
   }
 
-<<<<<<< HEAD
-  componentDidMount() {
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    const currDate = date + "-" + month + "-" + year;
-=======
     componentDidMount() {
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
         const currDate = year + '-' + month + '-' + date;
->>>>>>> ec802c924d8c2b3d070f0f28559260163a7afe8e
 
     this.setState({ date: currDate });
     this.setState({
