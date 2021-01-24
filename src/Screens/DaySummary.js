@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, TextInput, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TextInput,
+  Dimensions,
+} from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 
 const roundConfig = {
@@ -17,23 +24,72 @@ const roundConfig = {
 const data = {
   labels: ["🙁", "😐", "😄"], // optional
   data: [0.4, 0.6, 0.89],
-  colors:["#754af7","#56d3e3", "#2afb53"]
+  colors: ["#754af755", "#56d3e399", "#24e08cff"],
+  // colors:["#754af7"]
 };
 
 const screenWidth = Dimensions.get("window").width;
 
-const DaySummary = ({}) => {
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dev",
+];
+const DaySummary = ({
+  emojies = ["😭", "🤡", "😈", "😂", "😀"],
+  date = new Date(2021, 0, 17),
+}) => {
   return (
-    <ProgressChart
-      chartConfig={roundConfig}
-      width={screenWidth}
-      height={220}
-      strokeWidth={20}
-      radius={32}
-      data={data}
-      withCustomBarColorFromData={true}
-      // center={[1,2]}
-    />
+    <ScrollView>
+      <Text
+      style={{
+        textAlign:"center",
+        fontSize:24,
+        fontWeight:"bold"
+
+      }}>{`Top Emotions for ${
+        monthNames[date.getMonth()]
+      }. ${date.getDate()}, ${date.getFullYear()}`}</Text>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {emojies.map((emoji, index) => (
+          <Text style={{ fontSize: 48 }} key={index}>
+            {emoji}
+          </Text>
+        ))}
+      </View>
+      <Text style={{
+        textAlign:"center",
+        fontSize:24,
+        fontWeight:"bold"
+      }}>
+        Sentiment Breakdown
+      </Text>
+      <ProgressChart
+        chartConfig={roundConfig}
+        width={screenWidth}
+        height={220}
+        strokeWidth={20}
+        radius={32}
+        data={data}
+        withCustomBarColorFromData={true}
+        // center={[1,2]}
+      />
+    </ScrollView>
   );
 };
 

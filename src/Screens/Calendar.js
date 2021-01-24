@@ -143,7 +143,7 @@ export default function CalendarTabView({ years = yearsa }) {
       </Picker>
       <SecondPicker
         viewMode={viewMode}
-        defaultDays={30}
+        defaultDays={recentDays}
         setSubmit={setRecentDays}
         years={years}
         monthYear={monthYear}
