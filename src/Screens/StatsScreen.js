@@ -5,16 +5,18 @@ import Button from '../components/Button'
 import { globalStyles } from '../styles/global';
 
 export default class StatsScreen extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.state = {};
+        this.state = {
+            data: this.props.route.params.data,
+        };
     }
 
     render() {
         return (
             <ScrollView>
-                <Text>Filler Text</Text>
+                <Text>{this.state.data}</Text>
             </ScrollView>
         );
     }
