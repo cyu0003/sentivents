@@ -16,7 +16,7 @@ const lineConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
   color: (opacity = 1) => {
-    return `rgba(0, 0, 0, ${opacity})`;
+    return `rgba(255, 255, 255, ${opacity})`;
   },
 };
 

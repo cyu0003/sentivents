@@ -45,7 +45,7 @@ index b5221e0..a0aa27e 100644
              </G>
              {legend}
 diff --git a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js b/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
-index 5755b4f..a331630 100644
+index 5755b4f..a5bfe9c 100644
 --- a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
 +++ b/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
 @@ -32,7 +32,8 @@ import { convertToDate, getBeginningTimeForDate, shiftDate } from "./DateHelpers
@@ -67,12 +67,20 @@ index 5755b4f..a331630 100644
              (weekIndex + 1) * this.getSquareSizeWithGutter() + verticalOffset
          ];
      };
-@@ -215,7 +216,7 @@ var ContributionGraph = /** @class */ (function (_super) {
+@@ -213,9 +214,15 @@ var ContributionGraph = /** @class */ (function (_super) {
+         if (indexOutOfRange && !this.props.showOutOfRangeDays) {
+             return null;
          }
++        let strokeWidth = 0
++        var newDate = this.getStartDateWithEmptyDays();
++        newDate.setDate(newDate.getDate()+index)
++        if (newDate.getTime() === getBeginningTimeForDate(new Date()).getTime()) {
++            strokeWidth = 2
++        }
          var _a = this.getSquareCoordinates(dayIndex), x = _a[0], y = _a[1];
          var _b = this.props.squareSize, squareSize = _b === void 0 ? SQUARE_SIZE : _b;
 -        return (<Rect key={index} width={squareSize} height={squareSize} x={x + paddingLeft} y={y} title={this.getTitleForIndex(index)} fill={this.getClassNameForIndex(index)} onPress={function () {
-+        return (<Rect rx={3} ry={3} key={index} width={squareSize} height={squareSize} x={x + paddingLeft} y={y} title={this.getTitleForIndex(index)} fill={this.getClassNameForIndex(index)} onPress={function () {
++        return (<Rect stroke={"#f0f0f0"} strokeWidth={strokeWidth} rx={3} ry={3} key={index} width={squareSize} height={squareSize} x={x + paddingLeft} y={y} title={this.getTitleForIndex(index)} fill={this.getClassNameForIndex(index)} onPress={function () {
              _this.handleDayPress(index);
          }} {...this.getTooltipDataAttrsForIndex(index)}/>);
      };
