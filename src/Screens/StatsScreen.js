@@ -11,12 +11,22 @@ export default class StatsScreen extends Component {
         this.state = {
             data: this.props.route.params.data,
         };
+
+        this.onPress = this.onPress.bind(this);
+    }
+
+    onPress() {
+        /* insert data into database */
+        /* maybe add a confirmation alert? */
+        
+        this.props.navigation.navigate('Home');
     }
 
     render() {
         return (
             <ScrollView>
                 <Text>{this.state.data}</Text>
+                <Button onPress={this.onPress} buttonText='Submit' />
             </ScrollView>
         );
     }

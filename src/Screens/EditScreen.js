@@ -11,7 +11,6 @@ export default class EditScreen extends Component {
 
         this.state = {
             text: '',
-            data: '',
         };
 
         this.onPress = this.onPress.bind(this);
@@ -29,8 +28,7 @@ export default class EditScreen extends Component {
 
     onPress() {
         console.log(this.state.text);
-        this.getData().then((data) => this.setState({ data: data }))
-        .then(this.props.navigation.navigate('Stats', { data: this.state.data }));
+        this.getData().then((data) => this.props.navigation.navigate('Stats', { data: data }));
     }
 
     render() {
@@ -45,7 +43,7 @@ export default class EditScreen extends Component {
                     onChangeText={(text) => this.setState({ text: text })}
                     style={globalStyles.textBox}
                 />
-                <Button buttonPress={this.onPress} buttonText='Show summary'/>
+                <Button onPress={this.onPress} buttonText='Show summary'/>
             </ScrollView>
         );
     }

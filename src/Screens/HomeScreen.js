@@ -22,7 +22,7 @@ export default class HomeScreen extends Component {
                 <Calendar />
                 <Button
                     buttonText='Create New Log'
-                    buttonPress={this.onPress}
+                    onPress={this.onPress}
                 />
             </ScrollView>
         );
