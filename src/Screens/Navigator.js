@@ -9,10 +9,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from './Home';
-import Graph from './Graph';
 import Calendar from './Calendar'
-import Diary from './Diary';
+import EditScreen from './EditScreen'
+import StatsScreen from './StatsScreen'
 
 import {globalStyles} from '../styles/global';
 
@@ -21,42 +20,23 @@ const Stack = createStackNavigator();
 export default function Navigator() {
     return (
         <NavigationContainer>
-            <Stack.Navigator
-            initialRouteName="Home"
-            headerMode="screen"
-            screenOptions={{
-                headerTintColor: 'white',
-                headerStyle: { backgroundColor: 'tomato' },
-            }}
-            >
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{
-                title: 'sentivents',
-                }}
-            />
-            <Stack.Screen
-                name="Calendar"
-                component={Calendar}
-                options={{
-                title: 'My profile',
-                }}
-            />
-            <Stack.Screen
-                name="Graph"
-                component={Graph}
-                options={{
-                gestureEnabled: false,
-                }}
-            />
-            <Stack.Screen
-                name="Diary"
-                component={Diary}
-                options={{
-                gestureEnabled: false,
-                }}
-            />
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Home"
+                    component={Calendar}
+                    options={{
+                    headerTintColor: 'white',
+                    headerStyle: { backgroundColor: 'tomato' },
+                    }}
+                />
+                <Stack.Screen
+                    name="Edit"
+                    component={EditScreen}
+                />
+                <Stack.Screen
+                    name="Stats"
+                    component={StatsScreen}
+                />
             </Stack.Navigator>
         </NavigationContainer>
       );

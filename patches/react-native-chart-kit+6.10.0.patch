@@ -1,17 +1,17 @@
 diff --git a/node_modules/react-native-chart-kit/dist/ProgressChart.js b/node_modules/react-native-chart-kit/dist/ProgressChart.js
-index b5221e0..256eebb 100644
+index b5221e0..a0aa27e 100644
 --- a/node_modules/react-native-chart-kit/dist/ProgressChart.js
 +++ b/node_modules/react-native-chart-kit/dist/ProgressChart.js
 @@ -80,9 +80,10 @@ var ProgressChart = /** @class */ (function (_super) {
          var legend = !hideLegend && (<>
          <G>
            {pies.map(function (_, i) {
-+            const ri = pies.length - i - 1;
++            var ri = pies.length - i - 1;
              return (<Rect key={Math.random()} width="16px" height="16px" fill={_this.props.withCustomBarColorFromData
 -                ? withColor(i)
 -                : _this.props.chartConfig.color(0.2 * (i + 1), i)} rx={8} ry={8} x={_this.props.width / 2.5 - 24} y={-(_this.props.height / 2.5) +
 +                ? withColor(ri)
-+                : _this.props.chartConfig.color(0.2 * (ri + 1), ri)} rx={8} ry={8} x={_this.props.width / 2.5 - 24} y={-(_this.props.height / 2.5) +
++                : _this.props.chartConfig.color(0.3 * (ri + 1), ri)} rx={8} ry={8} x={_this.props.width / 2.5 - 24} y={-(_this.props.height / 2.5) +
                  ((_this.props.height * 0.8) /
                      (Array.isArray(data) ? data.length : data.data.length)) *
                      i +
@@ -19,7 +19,7 @@ index b5221e0..256eebb 100644
          </G>
          <G>
            {pies.map(function (_, i) {
-+            const ri = pies.length - i - 1;
++            var ri = pies.length - i - 1;
 +
              return (<Text key={Math.random()} x={_this.props.width / 2.5} y={-(_this.props.height / 2.5) +
                  ((_this.props.height * 0.8) /
@@ -35,6 +35,15 @@ index b5221e0..256eebb 100644
                </Text>);
          })}
          </G>
+@@ -118,7 +121,7 @@ var ProgressChart = /** @class */ (function (_super) {
+               {pies.map(function (pie, i) {
+             return (<Path key={Math.random()} strokeLinecap="round" strokeLinejoin="round" d={pie.curves[0].sector.path.print()} strokeWidth={strokeWidth} stroke={_this.props.withCustomBarColorFromData
+                 ? withColor(i)
+-                : _this.props.chartConfig.color((i / pies.length) * 0.5 + 0.5, i)}/>);
++                : _this.props.chartConfig.color(0.3 * (i + 1), i)}/>);
+         })}
+             </G>
+             {legend}
 diff --git a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js b/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
 index 5755b4f..4c2513b 100644
 --- a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
