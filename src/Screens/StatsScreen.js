@@ -4,16 +4,18 @@ import { ScrollView, Text } from 'react-native';
 import Button from '../components/Button'
 
 export default class StatsScreen extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.state = {};
+        this.state = {
+            data: this.props.route.params.data,
+        };
     }
 
     render() {
         return (
             <ScrollView>
-                <Text>Filler Text</Text>
+                <Text>{this.state.data}</Text>
             </ScrollView>
         );
     }
