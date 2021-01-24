@@ -26,19 +26,20 @@ export default class HomeScreen extends Component {
 
         this.onPress = this.onPress.bind(this);
         this.onPress2 = this.onPress2.bind(this);
+        this.clearDB = this.clearDB.bind(this);
     }
 
     componentDidMount() {
+        console.log('mount')
         let db = SQLite.openDatabase('UserDatabase.db');
 
         db.transaction((tx) => {
             tx.executeSql(
                 'SELECT * from messages',
-                [],
                 (tx, results) => {
                     var data = results.rows.array;
                     var len = results.rows.length;
-                    console.log(results.rows.array);
+                    //console.log(results.rows.array);
                     console.log(len);
 
                     if (len > 0) {
@@ -63,6 +64,18 @@ export default class HomeScreen extends Component {
         this.props.navigation.navigate('Calendar')
     }
 
+    clearDB() {
+        let db = SQLite.openDatabase('UserDatabase.db');
+
+        db.transaction((tx) => {
+            tx.executeSql(
+                'DELETE FROM messages'
+            )
+        });
+
+        console.log('Database cleared!');
+    }
+
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
@@ -74,6 +87,10 @@ export default class HomeScreen extends Component {
                 <Button
                     buttonText='View Calendar'
                     onPress={this.onPress2}
+                />
+                <Button
+                    buttonText='Do not press unless you are Chris lmao'
+                    onPress={this.clearDB}
                 />
             </ScrollView>
         );

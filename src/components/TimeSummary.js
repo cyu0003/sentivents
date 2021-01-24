@@ -81,6 +81,30 @@ const TimeSummary = ({
       <CardContainer>
         <Text
           style={{
+            textAlign: "center",
+            ...globalStyles.textLabel,
+            marginBottom:8
+          }}
+          >
+          Sentiment Over Time
+        </Text>
+          <MoodLineChart/>
+      </CardContainer>
+       <CardContainer>
+        <Text
+          style={{
+            textAlign: "center",
+            ...globalStyles.textLabel,
+            marginBottom:8
+          }}
+        >
+          Recent Activity
+        </Text>
+        <RecentDaysCalendarGraph days={7} fill={true}/>
+      </CardContainer>
+      <CardContainer>
+        <Text
+          style={{
             ...globalStyles.textLabel,
             textAlign: "center",
             marginBottom:8
@@ -113,30 +137,8 @@ const TimeSummary = ({
           })}
         </View>
       </CardContainer>
-      <CardContainer>
-        <Text
-          style={{
-            textAlign: "center",
-            ...globalStyles.textLabel,
-            marginBottom:8
-          }}
-        >
-          Recent Activity
-        </Text>
-        <RecentDaysCalendarGraph days={7} fill={true}/>
-      </CardContainer>
-      <CardContainer>
-        <Text
-          style={{
-            textAlign: "center",
-            ...globalStyles.textLabel,
-            marginBottom:8
-          }}
-          >
-          Sentiment Over Time
-        </Text>
-          <MoodLineChart/>
-      </CardContainer>
+     
+      
     </ScrollView>
   );
 };
