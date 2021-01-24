@@ -3,13 +3,15 @@ import { StyleSheet } from 'react-native';
 export const globalStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#6545D8',
         padding: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        width: '60%',
+        left: '20%',
     },
     main: {
         flex: 1,
-        backgroundColor: '#1f1f1f',
+        backgroundColor: '#23232D',
         color: '#f0f0f0',
     },
     textBox: {

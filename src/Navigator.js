@@ -26,7 +26,7 @@ export default function Navigator() {
                     component={HomeScreen}
                     options={{
                     headerTintColor: 'white',
-                    headerStyle: { backgroundColor: 'tomato' },
+                    headerStyle: { backgroundColor: '#6545D8' },
                     }}
                 />
                 <Stack.Screen
