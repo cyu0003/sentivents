@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 
 import { globalStyles } from '../styles/global';
-import { ReactComponent as Edit } from '../resources/edit.svg'
 
 export default class TabNavigation extends Component {
     constructor(props) {
@@ -18,6 +17,8 @@ export default class TabNavigation extends Component {
                 >
                     <Text style={{color: '#f0f0f0'}}>one</Text>
                 </TouchableOpacity>
+
+                
                 <TouchableOpacity
                     onPress={() => this.props.onPress2()}
                     style={globalStyles.tabNavigation}

@@ -28,7 +28,6 @@ export default class HomeScreen extends Component {
         };
 
         this.onPress = this.onPress.bind(this);
-        this.onPress2 = this.onPress2.bind(this);
         this.clearDB = this.clearDB.bind(this);
     }
 
@@ -63,10 +62,6 @@ export default class HomeScreen extends Component {
         this.props.navigation.navigate('Edit')
     }
 
-    onPress2() {
-        this.props.navigation.navigate('Calendar')
-    }
-
     clearDB() {
         let db = SQLite.openDatabase('UserDatabase.db');
 
@@ -84,14 +79,12 @@ export default class HomeScreen extends Component {
             <ScrollView contentContainerStyle={globalStyles.main}>
                 <TimeSummary/>
                 <Button
+                    buttonText='New Entry'
+                    onPress={this.onPress}
+                />
+                <Button
                     buttonText='Do not press unless you are Chris lmao'
                     onPress={this.clearDB}
-                />
-                <TabNavigation 
-                    buttonText='Home'
-                    buttonText2='Calendar'
-                    onPress={this.onPress}
-                    onPress2={this.onPress2}
                 />
             </ScrollView>
         );
