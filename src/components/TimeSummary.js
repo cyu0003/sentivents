@@ -15,6 +15,7 @@ import { MoodLineChart} from "./LineGraph"
 import {
   RecentDaysCalendarGraph,
 } from "./CalendarGraph";
+import {getMoodRatio} from "../components/Utils"
 
 
 const data = {
@@ -51,7 +52,6 @@ const monthNames = [
 const TimeSummary = ({
   emojies = ["😭", "🤡", "😈", "😂", "😀"],
   confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
-  date = new Date(2021, 0, 17),
 }) => {
   let totalConf = 0;
   confidences.forEach((c) => (totalConf += c));

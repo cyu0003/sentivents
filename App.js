@@ -51,7 +51,7 @@ export default class App extends Component {
 			
 			dbMethods.insertMessage([stringArray[i], currDate, data.emoji[0][0][0], data.emoji[0][1][0], data.emoji[0][2][0], data.emoji[0][3][0], data.emoji[0][4][0], data.emoji[0][0][1], data.emoji[0][1][1], data.emoji[0][2][1], data.emoji[0][3][1], data.emoji[0][4][1]]);
         }
-        console.log(db);
+        // console.log(db);
 	}
 
 
