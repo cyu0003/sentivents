@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-import Button from '../components/Button'
+import Button from '../components/Button';
 import { globalStyles } from '../styles/global';
 
 export default class EditScreen extends Component {
