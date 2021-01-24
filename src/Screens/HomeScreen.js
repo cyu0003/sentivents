@@ -32,7 +32,7 @@ export default class HomeScreen extends Component {
         this.clearDB = this.clearDB.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log('mount');
 
         var date = new Date().getDate();
@@ -42,18 +42,16 @@ export default class HomeScreen extends Component {
         let dates = [];
 
         for (let i = 0; i < 7; i++) {
-            //date -= 1;
+            date -= 1;
             const currDate = year + '-' + month + '-' + date;
 
             dates[i] = currDate;
-
-            console.log(currDate);
         }
 
         let data = [];
 
         for (let i = 0; i < dates.length; i++) {
-            data[i] = dbMethods.getMessages(dates[i]);
+            data[i] = await dbMethods.getMessages(dates[i]);
         }
 
         console.log(data);
