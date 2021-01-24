@@ -178,6 +178,7 @@ const DaySummary = ({
                 moodRatio
               ),
               borderRadius: 24,
+              marginBottom:8,
             }}
           ></View>
         </View>

@@ -24,7 +24,7 @@ export default class StatsScreen extends Component {
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
-        const currDate = date + '-' + month + '-' + year;
+        const currDate = year + '-' + month + '-' + date;
 
         this.setState({ date: currDate });
         this.setState({ data: this.props.route.params.data,
