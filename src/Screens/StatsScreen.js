@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Text } from "react-native";
-import * as SQLite from "expo-sqlite";
+import { Alert, ScrollView } from "react-native";
 import * as dbMethods from "../dbMethods";
 
 import DaySummary from "../components/DaySummary";
@@ -38,8 +37,15 @@ export default class StatsScreen extends Component {
     dbMethods.insertMessage(this.state.text, this.state.date, this.state.data.emoji[0][0][0], this.state.data.emoji[0][1][0], this.state.data.emoji[0][2][0], this.state.data.emoji[0][3][0], this.state.data.emoji[0][4][0], this.state.data.emoji[0][0][1], this.state.data.emoji[0][1][1], this.state.data.emoji[0][2][1], this.state.data.emoji[0][3][1], this.state.data.emoji[0][4][1]);
 
     /* maybe add a confirmation alert? */
-
-    this.props.navigation.navigate("Home");
+    Alert.alert(
+        'Success',
+        'Your entry has been submitted!',
+        [
+            {
+                text: 'OK', onPress: () => this.props.navigation.navigate("Home")
+            }
+        ]
+    )
   }
 
   render() {
