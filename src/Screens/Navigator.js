@@ -9,7 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Calendar from './Calendar'
+import HomeScreen from './HomeScreen'
 import EditScreen from './EditScreen'
 import StatsScreen from './StatsScreen'
 
@@ -23,7 +23,7 @@ export default function Navigator() {
             <Stack.Navigator>
                 <Stack.Screen
                     name="Home"
-                    component={Calendar}
+                    component={HomeScreen}
                     options={{
                     headerTintColor: 'white',
                     headerStyle: { backgroundColor: 'tomato' },
