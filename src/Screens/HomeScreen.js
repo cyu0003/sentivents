@@ -12,7 +12,16 @@ export default class HomeScreen extends Component {
         super();
 
         this.state = {
-            data: '',
+            emoji1: '',
+            emoji2: '',
+            emoji3: '',
+            emoji4: '',
+            emoji5: '',
+            cv1: '',
+            cv2: '',
+            cv3: '',
+            cv4: '',
+            cv5: '',
         };
 
         this.onPress = this.onPress.bind(this);
