@@ -1,3 +1,5 @@
+import emojiList from "../../emojiList"
+
 export const interpolateColors = (c1, c2, ratio, floor=0) => {
   c1 = c1.substring(1)
   c2 = c2.substring(1)
@@ -27,3 +29,31 @@ export const interpolateColors = (c1, c2, ratio, floor=0) => {
   );
   return `#${hex(r)}${hex(g)}${hex(b)}FF`;
 };
+
+export const getMoodRatio=(emojies, confidences)=>{
+  let totalConf = 0;
+  confidences.forEach((c) => (totalConf += c));
+
+  let totalSentiment = 0;
+  let neg = 0;
+  let pos = 0;
+
+  for (const emoji of emojies) {
+    const emojiObj = emojiList.find((item) => item.emoji === emoji);
+    if (emojiObj === undefined) {
+      continue;
+    }
+    totalSentiment += emojiObj.negative;
+    totalSentiment += emojiObj.neutral;
+    totalSentiment += emojiObj.positive;
+    neg += emojiObj.negative;
+    // data.data[1] += emojiObj.neutral;
+    pos += emojiObj.positive;
+  }
+  pos /= totalSentiment;
+  neg /= totalSentiment;
+  // data.data[2] /= totalSentiment;
+
+  const moodRatio = 0.5 + pos - neg;
+  return moodRatio
+}
