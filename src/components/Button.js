@@ -11,7 +11,7 @@ export default class Button extends Component {
     render() {
         return (
             <TouchableOpacity
-                onPress={() => this.props.buttonPress()}
+                onPress={() => this.props.onPress()}
                 style={globalStyles.button}
             >
                 <Text style={{color: '#f0f0f0'}}>{this.props.buttonText}</Text>
