@@ -8,7 +8,8 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 10,
         width: '60%',
         left: '20%',
-        marginTop: '5%',
+        marginTop: '3%',
+        marginBottom: '3%',
     },
     main: {
         flex: 1,
@@ -63,11 +64,6 @@ export const globalStyles = StyleSheet.create({
         fontWeight:"bold",
     },
     tabNavigation:{
-        left: 0,
-        width: '40%',
-        height: '20%',
-        bottom: 0,
-        flexDirection: 'row',
-        flex: 1,
+        backgroundColor: '#6545D8',
     }
   });
