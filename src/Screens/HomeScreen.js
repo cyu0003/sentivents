@@ -16,16 +16,7 @@ export default class HomeScreen extends Component {
         super();
 
         this.state = {
-            emoji1: '',
-            emoji2: '',
-            emoji3: '',
-            emoji4: '',
-            emoji5: '',
-            cv1: '',
-            cv2: '',
-            cv3: '',
-            cv4: '',
-            cv5: '',
+            data: [],
         };
 
         this.onPress = this.onPress.bind(this);
@@ -34,7 +25,7 @@ export default class HomeScreen extends Component {
 
     async componentDidMount() {
         console.log('mounted home')
-        var date = new Date().getDate();
+        var date = new Date().getDate()+1;
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
 
@@ -43,8 +34,8 @@ export default class HomeScreen extends Component {
         for (let i = 0; i < 7; i++) {
             date -= 1;
             const currDate = year + '-' + month + '-' + date;
-
             dates[i] = currDate;
+            console.log(dates[i])
         }
 
         let data = [];
@@ -52,6 +43,8 @@ export default class HomeScreen extends Component {
         for (let i = 0; i < dates.length; i++) {
             data[i] = await dbMethods.getMessages(dates[i]);
         }
+
+        this.setState({ data: data });
     }
 
     onPress() {
@@ -65,7 +58,7 @@ export default class HomeScreen extends Component {
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
-                <TimeSummary/>
+                <TimeSummary data={this.state.data} />
                 <View style={globalStyles.buttonContainer}>
                     <Button
                         buttonText='New Entry'

@@ -36,11 +36,7 @@ const CardContainer = ({ children, style }) => {
     </View>
   );
 };
-
-const getData = async (endDate, numDays) => {
-  let currDate = endDate;
-  currDate.setDate(currDate.getDate() - numDays);
-
+const gd = (data) => {
   //result 0 = emojies 1 = confs
 
   // 1 2 3
@@ -48,12 +44,14 @@ const getData = async (endDate, numDays) => {
   const result = [[], [], [], []];
   let rankObj = {};
 
-  for (let i = 0; i < numDays; i++) {
-    currDate.setDate(currDate.getDate() + 1);
-
-    const searchFormat = `${currDate.getFullYear()}-${currDate.getMonth() + 1}-${currDate.getDate()}`;
-
-    let dbObj = await dbMethods.getMessages(searchFormat);
+  for (let i = 0; i < data.length; i++) {
+    let dbObj = data[i];
+    if (dbObj.date=="2021-01-24") {
+      console.log("exists----------------------")
+    }
+    if (dbObj.date=="2021-01-23") {
+      console.log("exists3----------------------")
+    }
     let posAvg = 0;
     let neuAvg = 0;
     let negAvg = 0;
@@ -72,7 +70,6 @@ const getData = async (endDate, numDays) => {
       result[0].push(posAvg / dbObj.length);
       result[1].push(neuAvg / dbObj.length);
       result[2].push(negAvg / dbObj.length);
-      // dataList.push({date:dateFormatted, mood:(sum/dbObj.length)*100})
     }
   }
   const sortcontainer = [];
@@ -95,25 +92,24 @@ const getData = async (endDate, numDays) => {
   return result;
 };
 
-const TimeSummary = (
-  {
-    // emojies = ["😭", "🤡", "😈", "😂", "😀"],
-    // confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
-  }
-) => {
+const TimeSummary = ({ data }) => {
   const [emojies, setEmojies] = useState([]);
   const [sentiments, setSentiments] = useState([[0], [0], [0]]);
 
   useEffect(() => {
-    getData(new Date(), 7).then((result) => {
-      // console.log([result[0]/100, result[1]/100, result[2]/100]);
-      if (result[0] != undefined && result[1] != undefined && result[2] != undefined) {
-        setSentiments([result[0], result[1], result[2]]);
-      }
-      // setEmojies(["😭", "🤡", "😈", "😂", "😀"]);
-      setEmojies(result[3]);
-    });
-  }, [setEmojies, setSentiments]);
+    // console.log(data)
+    const result = gd(data);
+    console.log("new data")
+
+    if (
+      result[0] != undefined &&
+      result[1] != undefined &&
+      result[2] != undefined
+    ) {
+      setSentiments([result[0], result[1], result[2]]);
+    }
+    setEmojies(result[3]);
+  }, [data]);
 
   return (
     <ScrollView>
@@ -161,7 +157,6 @@ const TimeSummary = (
             flexDirection: "row",
             justifyContent: "space-evenly",
             marginBottom: 8,
-
           }}
         >
           {emojies.map((emoji, index) => {

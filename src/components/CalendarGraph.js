@@ -33,31 +33,34 @@ const generateData = async (endDate, numDays) => {
   // //TODO, there is an off by one error somewehre in the the chart library
   for (let i = 0; i < numDays; i++) {
     currDate.setDate(currDate.getDate() + 1);
+    // console.log(currDate)
     let dateFormatted;
     let monthString;
     let dayString;
     const searchFormat = `${currDate.getFullYear()}-${currDate.getMonth()+1}-${currDate.getDate()}`
-    if (currDate.getMonth()+1 < 10) {
-      monthString = `0${currDate.getMonth() + 1}`;
+    let tempDate = new Date(currDate)
+    tempDate.setDate(tempDate.getDate()+1)
+    if (tempDate.getMonth()+1 < 10) {
+      monthString = `0${tempDate.getMonth() + 1}`;
     }else {
-      monthString = `${currDate.getMonth() + 1}`;
+      monthString = `${tempDate.getMonth() + 1}`;
     }
-    if (currDate.getDate() < 10) {
-      dayString = `0${currDate.getDate()}`
+    if (tempDate.getDate() < 10) {
+      dayString = `0${tempDate.getDate()}`
     }
     else {
-      dayString =`${currDate.getDate()}`
+      dayString =`${tempDate.getDate()}`
     }
-
-    dateFormatted = `${currDate.getFullYear()}-${monthString}-${dayString}`
+    dateFormatted = `${tempDate.getFullYear()}-${monthString}-${dayString}`
     // console.log(dateFormatted)
     let dbObj = await dbMethods.getMessages(
       searchFormat
     );
-    // console.log("this is");
-    // console.log(dbObj);
+    console.log("this is");
+    console.log(dbObj);
     let sum = 0;
     dbObj.map((o) => {
+      console.log(o)
       sum += getMoodRatio(
         [o["emoji1"], o["emoji2"], o["emoji3"], o["emoji4"], o["emoji5"]],
         [o["cv1"], o["cv2"], o["cv3"], o["cv4"], o["cv5"]]
@@ -67,8 +70,8 @@ const generateData = async (endDate, numDays) => {
       dataList.push({date:dateFormatted, mood:(sum/dbObj.length)*100})
     }
   }
-  // console.log("datalist ----------------------")
-  // console.log(dataList)
+  console.log("datalist ----------------------")
+  console.log(dataList)
   return dataList;
 };
 
