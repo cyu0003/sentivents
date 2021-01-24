@@ -26,12 +26,12 @@ export default class StatsScreen extends Component {
         var year = new Date().getFullYear();
         const currDate = year + '-' + month + '-' + date;
 
-    this.setState({ date: currDate });
-    this.setState({
-      data: this.props.route.params.data,
-      text: this.props.route.params.text,
-    });
-  }
+        this.setState({ date: currDate });
+        this.setState({
+            data: this.props.route.params.data,
+            text: this.props.route.params.text,
+        });
+    }
 
   onPress() {
     var db = SQLite.openDatabase("UserDatabase.db");
