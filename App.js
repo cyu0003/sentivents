@@ -35,7 +35,6 @@ export default class App extends Component {
 		var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
-        const currDate = date + '-' + month + '-' + year;
 		
 		const stringArray = ['I feel great today!', 'Today was not a good day for me.', 'I hung out with my friends today!', 'I got a bad grade on my test today.', 'My dog died today.'];
 
@@ -43,7 +42,10 @@ export default class App extends Component {
 			const response = await fetch('http://34.121.2.138:8080/emote?sentences=[\"' + stringArray[i] + '\"]', {
         		method: 'GET'
         	});
-            const data = await response.json();;
+            const data = await response.json();
+
+            month = month - (i + 1);
+            const currDate = date + '-' + month + '-' + year;
 			
 			db.transaction((tx) => {
 				tx.executeSql(
