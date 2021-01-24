@@ -28,5 +28,20 @@ export const globalStyles = StyleSheet.create({
     },
     text: {
         color: '#f0f0f0',
+    },
+    secondary: {
+        backgroundColor:"#505066",
+    },
+    picker:{
+        backgroundColor:"#505066",
+        width:150,
+        height:50,
+        color:'#f0f0f0',
+        fontSize:16,
+    },
+    textLabel:{
+        color: '#f0f0f0',
+        fontSize:16,
+        fontWeight:"bold",
     }
   });

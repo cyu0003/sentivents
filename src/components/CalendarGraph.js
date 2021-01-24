@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import {interpolateColors} from "./Utils"
+import {globalStyles} from "../styles/global"
 import {
   // LineChart,
   // BarChart,
@@ -39,10 +40,10 @@ const generateData = (endDate, numDays) => {
 };
 
 const calendarConfig = {
-  color: (opacity = 1) => interpolateColors("#2afb53", "#754af7", opacity),
+  color: (opacity = 1) => interpolateColors("#2afb53", "#754af7", opacity, 0.15),
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
-  propsForLabels:{fontWeight:"bold", fontSize:16, fill:"#222222"}
+  propsForLabels:{fontWeight:"bold", fontSize:16, fill:globalStyles.text.color}
 };
 
 const CalendarGraph = ({ endDate, numDays, height, labels }) => {
@@ -50,7 +51,7 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
   // const moodData =[]
   // endDate.setDate(endDate.getDate()-1)
   return (
-    <View>
+    // <View>
       <ContributionGraph
         style={{ alignItems:"center"}}
         values={moodData}
@@ -65,7 +66,7 @@ const CalendarGraph = ({ endDate, numDays, height, labels }) => {
         gutterSize={4}
         showMonthLabels={labels}
       />
-    </View>
+    // </View>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, TextInput } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import NumberInput from "./NumberInput";
 import {
@@ -7,11 +7,16 @@ import {
   RecentDaysCalendarGraph,
   YearCalendarGraph,
 } from "./CalendarGraph";
+import { globalStyles } from "../styles/global";
 
 const YearPicker = ({ years, onChangeYear, selectedYear }) => {
   return (
     <Picker
-      style={{ height: 50, width: 150 }}
+      style={{
+        ...globalStyles.picker,
+        height: 50,
+        width: 80,
+      }}
       mode={"dropdown"}
       onValueChange={(itemValue, itemIndex) =>
         onChangeYear(parseInt(itemValue))
@@ -28,7 +33,11 @@ const YearPicker = ({ years, onChangeYear, selectedYear }) => {
 const MonthPicker = ({ months = monthsa, onChangeMonth, selectedMonth }) => {
   return (
     <Picker
-      style={{ height: 50, width: 150 }}
+      style={{
+        ...globalStyles.picker,
+        height: 50,
+        width: 100,
+      }}
       mode={"dropdown"}
       onValueChange={(itemValue, itemIndex) => onChangeMonth(itemIndex)}
       selectedValue={selectedMonth}
@@ -73,10 +82,17 @@ const SecondPicker = ({
   switch (viewMode) {
     case 0:
       return (
-        <NumberInput
-          defaultValue={defaultDays}
-          setSubmit={setSubmit}
-        />
+        <View style={{flexDirection:"row", alignItems:"center"}}>
+          <Text style={{ ...globalStyles.textLabel, marginRight: 8 }}>
+            Last
+          </Text>
+
+          <NumberInput
+            defaultValue={defaultDays}
+            setSubmit={setSubmit}
+            style={{ ...globalStyles.picker, width: 100, textAlign: "center" }}
+          />
+        </View>
       );
     case 1:
       return (
@@ -96,13 +112,7 @@ const SecondPicker = ({
   }
 };
 
-const SelectedCalendar = ({
-  viewMode,
-  recentDays,
-  monthYear,
-  month,
-  year,
-}) => {
+const SelectedCalendar = ({ viewMode, recentDays, monthYear, month, year }) => {
   switch (viewMode) {
     case 0:
       return <RecentDaysCalendarGraph days={recentDays} />;
@@ -131,28 +141,43 @@ export default function CalendarTabView({ years = yearsa }) {
 
   return (
     <View>
-      <Picker
-        style={{ height: 50, width: 200 }}
-        mode={"dropdown"}
-        onValueChange={(itemValue, itemIndex) => setViewMode(itemValue)}
-        selectedValue={viewMode}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          padding: 8,
+        }}
       >
-        <Picker.Item label={PICKER_LABELS[0]} value={0} />
-        <Picker.Item label={PICKER_LABELS[1]} value={1} />
-        <Picker.Item label={PICKER_LABELS[2]} value={2} />
-      </Picker>
-      <SecondPicker
-        viewMode={viewMode}
-        defaultDays={recentDays}
-        setSubmit={setRecentDays}
-        years={years}
-        monthYear={monthYear}
-        setMonthYear={setMonthYear}
-        month={month}
-        setMonth={setMonth}
-        year={year}
-        setYear={setYear}
-      />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ ...globalStyles.textLabel, marginRight: 8 }}>
+            Show
+          </Text>
+          <Picker
+            style={{ ...globalStyles.picker, width: 100 }}
+            mode={"dropdown"}
+            onValueChange={(itemValue, itemIndex) => setViewMode(itemValue)}
+            selectedValue={viewMode}
+          >
+            <Picker.Item label={PICKER_LABELS[0]} value={0} />
+            <Picker.Item label={PICKER_LABELS[1]} value={1} />
+            <Picker.Item label={PICKER_LABELS[2]} value={2} />
+          </Picker>
+        </View>
+
+        <SecondPicker
+          viewMode={viewMode}
+          defaultDays={recentDays}
+          setSubmit={setRecentDays}
+          years={years}
+          monthYear={monthYear}
+          setMonthYear={setMonthYear}
+          month={month}
+          setMonth={setMonth}
+          year={year}
+          setYear={setYear}
+        />
+      </View>
+
       <ScrollView>
         <SelectedCalendar
           viewMode={viewMode}
