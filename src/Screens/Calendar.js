@@ -140,7 +140,7 @@ export default function CalendarTabView({ years = yearsa }) {
   const [year, setYear] = useState(defaultDate.getFullYear());
 
   return (
-    <View>
+    <View style={globalStyles.main}>
       <View
         style={{
           flexDirection: "row",
