@@ -26,7 +26,6 @@ export default class StatsScreen extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={globalStyles.main}>
-                <Text>Filler Text</Text>
                 <DaySummary/>
                 <Text>{this.state.data}</Text>
                 <Button onPress={this.onPress} buttonText='Submit' />
