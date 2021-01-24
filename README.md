@@ -9,4 +9,4 @@ The server returns the emojies that most closely describe the emotional state of
 
 Finally, all the information,(the emojies from DeepMoji, calculated sentiment breakdown, and mood estimate) are stored in a SQLite database where it can be queried, edited, and abused.
 
-From the calendar view largescale mood trends can be viewed and old logs can be revisited or updated.
+From the calendar view, largescale mood trends can be viewed and old logs can be revisited or updated.

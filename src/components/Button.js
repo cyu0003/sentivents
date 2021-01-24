@@ -9,6 +9,17 @@ export default class Button extends Component {
     }
 
     render() {
+        if (this.props.type == 2) {
+            return(
+                <TouchableOpacity
+                onPress={() => this.props.onPress()}
+                style={globalStyles.button2}
+            >
+                <Text style={{color: '#f0f0f0'}}>{this.props.buttonText}</Text>
+            </TouchableOpacity>
+            );
+        }
+
         return (
             <TouchableOpacity
                 onPress={() => this.props.onPress()}

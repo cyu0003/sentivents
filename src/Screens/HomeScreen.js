@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
 import * as dbMethods from '../dbMethods';
+import ButtonContainer from '../components/ButtonContainer';
 import Button from '../components/Button';
 import TimeSummary from '../components/TimeSummary';
 
@@ -28,9 +29,11 @@ export default class HomeScreen extends Component {
         };
 
         this.onPress = this.onPress.bind(this);
+        this.update = this.update.bind(this);
     }
 
     async componentDidMount() {
+        console.log('mounted home')
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
@@ -55,14 +58,26 @@ export default class HomeScreen extends Component {
         this.props.navigation.navigate('Edit')
     }
 
+    update() {
+        this.componentDidMount();
+    }
+
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
                 <TimeSummary/>
-                <Button
-                    buttonText='New Entry'
-                    onPress={this.onPress}
-                />
+                <View style={globalStyles.buttonContainer}>
+                    <Button
+                        buttonText='New Entry'
+                        onPress={this.onPress}
+                        type={2}
+                    />
+                    <Button
+                        buttonText='Refresh'
+                        onPress={this.update}
+                        type={2}
+                    />
+                </View>
             </ScrollView>
         );
     }
