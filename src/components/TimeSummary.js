@@ -51,9 +51,7 @@ const getData = async (endDate, numDays) => {
   for (let i = 0; i < numDays; i++) {
     currDate.setDate(currDate.getDate() + 1);
 
-    const searchFormat = `${currDate.getFullYear()}-${
-      currDate.getMonth() + 1
-    }-${currDate.getDate()}`;
+    const searchFormat = `${currDate.getFullYear()}-${currDate.getMonth() + 1}-${currDate.getDate()}`;
 
     let dbObj = await dbMethods.getMessages(searchFormat);
     let posAvg = 0;
@@ -118,15 +116,18 @@ const TimeSummary = (
   }
 ) => {
   const [emojies, setEmojies] = useState([]);
-  const [sentiments, setSentiments] = useState([[], [], []]);
+  const [sentiments, setSentiments] = useState([[0], [0], [0]]);
 
   useEffect(() => {
     getData(new Date(), 7).then((result) => {
-      // console.log([result[0], result[1], result[2]]);
-      setSentiments([result[0], result[1], result[2]]);
+      // console.log([result[0]/100, result[1]/100, result[2]/100]);
+      if (result[0] != undefined && result[1] != undefined && result[2] != undefined) {
+        setSentiments([result[0], result[1], result[2]]);
+      }
+      // setEmojies(["😭", "🤡", "😈", "😂", "😀"]);
       setEmojies(result[3]);
     });
-  }, []);
+  }, [setEmojies, setSentiments]);
 
   return (
     <ScrollView>
