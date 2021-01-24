@@ -18,7 +18,7 @@ export default class EditScreen extends Component {
 
     onPress() {
         console.log(this.state.text);
-        this.props.navigation.navigate('StatsScreen');
+        this.props.navigation.navigate('Stats');
     }
 
     render() {

@@ -7,13 +7,24 @@ import Calendar from '../components/Calendar';
 
 export default class HomeScreen extends Component {
     constructor() {
+        super();
 
+        this.onPress = this.onPress.bind(this);
+    }
+
+    onPress() {
+        this.props.navigation.navigate('Edit')
     }
 
     render() {
-        <ScrollView>
-            <Calendar />
-            <Button />
-        </ScrollView>
+        return(
+            <ScrollView>
+                <Calendar />
+                <Button
+                    buttonText='Create New Log'
+                    buttonPress={this.onPress}
+                />
+            </ScrollView>
+        );
     }
 }
