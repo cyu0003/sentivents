@@ -44,6 +44,7 @@ export default class EditScreen extends Component {
                     value={this.state.text}
                     onChangeText={(text) => this.setState({ text: text })}
                     style={globalStyles.textBox}
+                    textAlignVertical={'top'}
                 />
                 <Button onPress={this.onPress} buttonText='Show summary'/>
             </ScrollView>

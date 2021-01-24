@@ -15,10 +15,16 @@ export const globalStyles = StyleSheet.create({
         color: '#f0f0f0',
     },
     textBox: {
+        textAlign: 'left',
+        justifyContent: 'flex-start',
         borderColor:'#000',
         borderWidth: 1,
         height: '60%',
         width: '80%',
+        left: '10%',
+        marginBottom: '20%',
+        top: '5%',
+        color: '#f0f0f0',
     },
     drawerStyle: {
         backgroundColor: '#000',
