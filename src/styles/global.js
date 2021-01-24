@@ -16,7 +16,11 @@ export const globalStyles = StyleSheet.create({
     textBox: {
         borderColor:'#000',
         borderWidth: 1,
-        height: 50,
-        width: '70%',
-    }
+        height: '60%',
+        width: '80%',
+    },
+    navStyle: {
+        backgroundColor: '#000',
+        color: '#fff',
+    },
   });
