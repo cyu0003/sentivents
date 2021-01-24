@@ -4,8 +4,8 @@ import {
   MonthCalendarGraph,
   RecentDaysCalendarGraph,
   YearCalendarGraph,
-} from "../components/CalendarGraph";
-import { LineGraph } from "../components/LineGraph";
+} from "./CalendarGraph";
+import { LineGraph } from "./LineGraph";
 import { Picker } from "@react-native-picker/picker";
 
 import DaySummary from "./DaySummary"
