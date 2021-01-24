@@ -87,28 +87,14 @@ const getData = async (endDate, numDays) => {
   if (sortcontainer.length < 5) {
     end = sortcontainer.length;
   }
-  console.log("end + " + end);
+  // console.log("end + " + end);
   for (let i = 0; i < end; i++) {
     result[3].push(sortcontainer[i][0]);
   }
-  console.log(result);
+  // console.log(result);
   return result;
 };
 
-const monthNames = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dev",
-];
 const TimeSummary = (
   {
     // emojies = ["😭", "🤡", "😈", "😂", "😀"],
@@ -174,6 +160,8 @@ const TimeSummary = (
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-evenly",
+            marginBottom: 8,
+
           }}
         >
           {emojies.map((emoji, index) => {
