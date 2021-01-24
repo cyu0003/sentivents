@@ -1,3 +1,40 @@
+diff --git a/node_modules/react-native-chart-kit/dist/ProgressChart.js b/node_modules/react-native-chart-kit/dist/ProgressChart.js
+index b5221e0..256eebb 100644
+--- a/node_modules/react-native-chart-kit/dist/ProgressChart.js
++++ b/node_modules/react-native-chart-kit/dist/ProgressChart.js
+@@ -80,9 +80,10 @@ var ProgressChart = /** @class */ (function (_super) {
+         var legend = !hideLegend && (<>
+         <G>
+           {pies.map(function (_, i) {
++            const ri = pies.length - i - 1;
+             return (<Rect key={Math.random()} width="16px" height="16px" fill={_this.props.withCustomBarColorFromData
+-                ? withColor(i)
+-                : _this.props.chartConfig.color(0.2 * (i + 1), i)} rx={8} ry={8} x={_this.props.width / 2.5 - 24} y={-(_this.props.height / 2.5) +
++                ? withColor(ri)
++                : _this.props.chartConfig.color(0.2 * (ri + 1), ri)} rx={8} ry={8} x={_this.props.width / 2.5 - 24} y={-(_this.props.height / 2.5) +
+                 ((_this.props.height * 0.8) /
+                     (Array.isArray(data) ? data.length : data.data.length)) *
+                     i +
+@@ -91,14 +92,16 @@ var ProgressChart = /** @class */ (function (_super) {
+         </G>
+         <G>
+           {pies.map(function (_, i) {
++            const ri = pies.length - i - 1;
++
+             return (<Text key={Math.random()} x={_this.props.width / 2.5} y={-(_this.props.height / 2.5) +
+                 ((_this.props.height * 0.8) /
+                     (Array.isArray(data) ? data.length : data.data.length)) *
+                     i +
+                 12 * 2} {..._this.getPropsForLabels()}>
+-                {withLabel(i)
+-                ? data.labels[i] + " " + Math.round(100 * data.data[i]) + "%"
+-                : Math.round(100 * data.data[i]) + "%"}
++                {withLabel(ri)
++                ? data.labels[ri] + " " + Math.round(100 * data.data[ri]) + "%"
++                : Math.round(100 * data.data[ri]) + "%"}
+               </Text>);
+         })}
+         </G>
 diff --git a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js b/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
 index 5755b4f..4c2513b 100644
 --- a/node_modules/react-native-chart-kit/dist/contribution-graph/ContributionGraph.js
