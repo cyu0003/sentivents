@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -11,12 +11,11 @@ import { ProgressChart } from "react-native-chart-kit";
 import { Card } from "react-native-paper";
 import emojiList from "../../emojiList";
 import { globalStyles } from "../styles/global";
-import { MoodLineChart} from "./LineGraph"
-import {
-  RecentDaysCalendarGraph,
-} from "./CalendarGraph";
-import {getMoodRatio} from "../components/Utils"
+import { MoodLineChart } from "./LineGraph";
+import { RecentDaysCalendarGraph } from "./CalendarGraph";
+import { getMoodRatio, getEmojiValues } from "../components/Utils";
 
+import * as dbMethods from "../dbMethods";
 
 const data = {
   labels: ["🙁", "😐", "😄"], // optional
@@ -25,15 +24,78 @@ const data = {
   // colors:["#754af7"]
 };
 
-const CardContainer=({children, style})=>{
-  return <View style={{
-    ...globalStyles.secondary,
-    ...style
-  }}>
-    {children}
-  </View>
-}
+const CardContainer = ({ children, style }) => {
+  return (
+    <View
+      style={{
+        ...globalStyles.secondary,
+        ...style,
+      }}
+    >
+      {children}
+    </View>
+  );
+};
 
+const getData = async (endDate, numDays) => {
+  let currDate = endDate;
+  currDate.setDate(currDate.getDate() - numDays);
+
+  //result 0 = emojies 1 = confs
+
+  // 1 2 3
+
+  const result = [[], [], [], []];
+  let rankObj = {};
+
+  for (let i = 0; i < numDays; i++) {
+    currDate.setDate(currDate.getDate() + 1);
+
+    const searchFormat = `${currDate.getFullYear()}-${
+      currDate.getMonth() + 1
+    }-${currDate.getDate()}`;
+
+    let dbObj = await dbMethods.getMessages(searchFormat);
+    let posAvg = 0;
+    let neuAvg = 0;
+    let negAvg = 0;
+    dbObj.map((o, index) => {
+      [o["emoji1"], o["emoji2"], o["emoji3"], o["emoji4"], o["emoji5"]].map(
+        (actualEmoji) => {
+          const d = getEmojiValues(actualEmoji);
+          posAvg += d[0];
+          neuAvg += d[1];
+          negAvg += d[2];
+          rankObj[actualEmoji] = rankObj[actualEmoji] + 1 || 1;
+        }
+      );
+    });
+    if (dbObj.length !== 0) {
+      result[0].push(posAvg / dbObj.length);
+      result[1].push(neuAvg / dbObj.length);
+      result[2].push(negAvg / dbObj.length);
+      // dataList.push({date:dateFormatted, mood:(sum/dbObj.length)*100})
+    }
+  }
+  const sortcontainer = [];
+  for (const key in rankObj) {
+    sortcontainer.push([key, rankObj[key]]);
+  }
+  sortcontainer.sort(function (a, b) {
+    return b[1] - a[1];
+  });
+
+  let end = 5;
+  if (sortcontainer.length < 5) {
+    end = sortcontainer.length;
+  }
+  console.log("end + " + end);
+  for (let i = 0; i < end; i++) {
+    result[3].push(sortcontainer[i][0]);
+  }
+  console.log(result);
+  return result;
+};
 
 const monthNames = [
   "Jan",
@@ -49,32 +111,23 @@ const monthNames = [
   "Nov",
   "Dev",
 ];
-const TimeSummary = ({
-  emojies = ["😭", "🤡", "😈", "😂", "😀"],
-  confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
-}) => {
-  let totalConf = 0;
-  confidences.forEach((c) => (totalConf += c));
-
-  let totalSentiment = 0;
-
-  for (const emoji of emojies) {
-    const emojiObj = emojiList.find((item) => item.emoji === emoji);
-    if (emojiObj === undefined) {
-      continue;
-    }
-    totalSentiment += emojiObj.negative;
-    totalSentiment += emojiObj.neutral;
-    totalSentiment += emojiObj.positive;
-    data.data[0] += emojiObj.negative;
-    data.data[1] += emojiObj.neutral;
-    data.data[2] += emojiObj.positive;
+const TimeSummary = (
+  {
+    // emojies = ["😭", "🤡", "😈", "😂", "😀"],
+    // confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
   }
-  data.data[0] /= totalSentiment;
-  data.data[1] /= totalSentiment;
-  data.data[2] /= totalSentiment;
+) => {
+  const [emojies, setEmojies] = useState([]);
+  const [sentiments, setSentiments] = useState([[], [], []]);
 
-  // const moodRatio = 0.5 + data.data[2] - data.data[1];
+  useEffect(() => {
+    getData(new Date(), 7).then((result) => {
+      // console.log([result[0], result[1], result[2]]);
+      setSentiments([result[0], result[1], result[2]]);
+      setEmojies(result[3]);
+    });
+  }, []);
+
   return (
     <ScrollView>
       <CardContainer>
@@ -82,33 +135,39 @@ const TimeSummary = ({
           style={{
             textAlign: "center",
             ...globalStyles.textLabel,
-            marginBottom:8
+            marginBottom: 8,
           }}
-          >
+        >
           Sentiment Over Time
         </Text>
-          <MoodLineChart/>
+        <MoodLineChart
+          dataPos={sentiments[0]}
+          dataNeu={sentiments[1]}
+          dataNeg={sentiments[2]}
+        />
       </CardContainer>
-       <CardContainer>
+      <CardContainer>
         <Text
           style={{
             textAlign: "center",
             ...globalStyles.textLabel,
-            marginBottom:8
+            marginBottom: 8,
           }}
         >
           Recent Activity
         </Text>
-        <RecentDaysCalendarGraph days={7} fill={true}/>
+        <RecentDaysCalendarGraph days={7} fill={true} />
       </CardContainer>
       <CardContainer>
         <Text
           style={{
             ...globalStyles.textLabel,
             textAlign: "center",
-            marginBottom:8
+            marginBottom: 8,
           }}
-        >Your Top Emotions</Text>
+        >
+          Your Top Emotions
+        </Text>
         <View
           style={{
             display: "flex",
@@ -122,22 +181,11 @@ const TimeSummary = ({
                 <Text style={{ ...globalStyles.textLabel, fontSize: 36 }}>
                   {emoji}
                 </Text>
-                <Text
-                  style={{
-                    ...globalStyles.textLabel,
-                    fontSize: 24,
-                    textAlign: "center",
-                  }}
-                >
-                  {Math.floor((confidences[index] * 100) / totalConf)}
-                </Text>
               </View>
             );
           })}
         </View>
       </CardContainer>
-     
-      
     </ScrollView>
   );
 };

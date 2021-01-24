@@ -29,7 +29,7 @@ const generateData = async (endDate, numDays) => {
 
   // dbMethods.getMessages
   let currDate = new Date(endDate);
-  currDate.setDate(currDate.getDate() - numDays + 1);
+  currDate.setDate(currDate.getDate() - numDays );
   // //TODO, there is an off by one error somewehre in the the chart library
   for (let i = 0; i < numDays; i++) {
     currDate.setDate(currDate.getDate() + 1);

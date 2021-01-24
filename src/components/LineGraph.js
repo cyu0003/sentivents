@@ -31,6 +31,10 @@ export const LineGraph = ({dataPos=testDate1, dataNeu=testDate2, dataNeg=testDat
     today.setDate(today.getDate()+1)
     dayLabels.push(`${today.getMonth()+1}/${today.getDate()}`)
   }
+  // console.log("recieve")
+  // console.log(dataPos)
+  // console.log(dataNeu)
+  // console.log(dataNeg)
   return (
     <View style={{alignItems:"center"}}>
       <LineChart
@@ -67,8 +71,8 @@ export const EmojiLineChart=({})=>{
   // add many datasets
 }
 
-export const MoodLineChart=({})=>{
-  return <LineGraph/>
+export const MoodLineChart=({dataPos, dataNeu, dataNeg})=>{
+  return <LineGraph dataPos={dataPos} dataNeg={dataNeg} dataNeu={dataNeu}/>
   // new Date().getMonth
   // get data up to the last 12 months
 }

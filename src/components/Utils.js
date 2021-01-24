@@ -1,8 +1,8 @@
-import emojiList from "../../emojiList"
+import emojiList from "../../emojiList";
 
-export const interpolateColors = (c1, c2, ratio, floor=0) => {
-  c1 = c1.substring(1)
-  c2 = c2.substring(1)
+export const interpolateColors = (c1, c2, ratio, floor = 0) => {
+  c1 = c1.substring(1);
+  c2 = c2.substring(1);
   // min ratio from react-native-chart-kit library
   if (ratio === floor) {
     return "#3a3a4a";
@@ -29,8 +29,14 @@ export const interpolateColors = (c1, c2, ratio, floor=0) => {
   );
   return `#${hex(r)}${hex(g)}${hex(b)}FF`;
 };
-
-export const getMoodRatio=(emojies, confidences)=>{
+export const getEmojiValues = (emoji) => {
+  const emojiObj = emojiList.find((item) => item.emoji === emoji);
+  if (emojiObj === undefined) {
+    return [0, 0, 0];
+  }
+  return [emojiObj.positive, emojiObj.neutral, emojiObj.negative];
+};
+export const getMoodRatio = (emojies, confidences) => {
   let totalConf = 0;
   confidences.forEach((c) => (totalConf += c));
 
@@ -55,5 +61,5 @@ export const getMoodRatio=(emojies, confidences)=>{
   // data.data[2] /= totalSentiment;
 
   const moodRatio = 0.5 + pos - neg;
-  return moodRatio
-}
+  return moodRatio;
+};
