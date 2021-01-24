@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 
 import Button from '../components/Button';
 import Calendar from '../components/Calendar';
@@ -25,6 +24,31 @@ export default class HomeScreen extends Component {
         };
 
         this.onPress = this.onPress.bind(this);
+    }
+
+    componentDidMount() {
+        let db = SQLite.openDatabase('UserDatabase.db');
+
+        db.transaction((tx) => {
+            tx.executeSql(
+                'SELECT * from messages',
+                [],
+                (tx, results) => {
+                    var len = results.rows.length;
+                    console.log(len);
+
+                    if (len > 0) {
+                        this.setState({ data: JSON.stringify(results) });
+                    } else {
+                        this.setState({ data: ["uhhhhh there's nothing lmao"] });
+                        alert('no messages');
+                    }
+                },
+                (tx, err) => {
+                    console.log(err);
+                }
+            )
+        });
     }
 
     onPress() {
