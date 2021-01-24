@@ -61,7 +61,6 @@ export default class HomeScreen extends Component {
     render() {
         return(
             <ScrollView contentContainerStyle={globalStyles.main}>
-                <Calendar />
                 <Button
                     buttonText='Create New Log'
                     onPress={this.onPress}
