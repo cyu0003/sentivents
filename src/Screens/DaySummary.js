@@ -8,10 +8,13 @@ import {
   Dimensions,
 } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
-
+import emojiList from "../../emojiList"
 const roundConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
+  propsForLabels: {
+    fontSize: 16,
+  },
   color: (opacity = 1) => {
     // console.log(opacity);
     // if (opacity===0.2) {
@@ -23,7 +26,7 @@ const roundConfig = {
 
 const data = {
   labels: ["🙁", "😐", "😄"], // optional
-  data: [0.4, 0.6, 0.89],
+  data: [0,0,0],
   colors: ["#754af755", "#56d3e399", "#24e08cff"],
   // colors:["#754af7"]
 };
@@ -46,17 +49,40 @@ const monthNames = [
 ];
 const DaySummary = ({
   emojies = ["😭", "🤡", "😈", "😂", "😀"],
+  confidences = [0.5, 0.8, 0.9, 0.6, 0.2],
   date = new Date(2021, 0, 17),
 }) => {
+  let totalConf = 0;
+  confidences.forEach((c)=>totalConf+=c);
+
+
+  let totalSentiment = 0;
+
+  for (const emoji of emojies) {
+    const emojiObj = emojiList.find(item=>item.emoji===emoji);
+    if (emojiObj === undefined) {
+      continue;
+    }
+    totalSentiment+= emojiObj.negative
+    totalSentiment+= emojiObj.neutral
+    totalSentiment+= emojiObj.positive
+    data.data[0] += emojiObj.negative
+    data.data[1] += emojiObj.neutral
+    data.data[2] += emojiObj.positive
+  }
+  data.data[0] /= totalSentiment
+  data.data[1] /= totalSentiment
+  data.data[2] /= totalSentiment
+
   return (
     <ScrollView>
       <Text
-      style={{
-        textAlign:"center",
-        fontSize:24,
-        fontWeight:"bold"
-
-      }}>{`Top Emotions for ${
+        style={{
+          textAlign: "center",
+          fontSize: 24,
+          fontWeight: "bold",
+        }}
+      >{`Emotions for ${
         monthNames[date.getMonth()]
       }. ${date.getDate()}, ${date.getFullYear()}`}</Text>
       <View
@@ -66,17 +92,31 @@ const DaySummary = ({
           justifyContent: "space-evenly",
         }}
       >
-        {emojies.map((emoji, index) => (
-          <Text style={{ fontSize: 48 }} key={index}>
-            {emoji}
-          </Text>
-        ))}
+        {emojies.map((emoji, index) => {
+
+          return <View key={index}>
+            <Text style={{ fontSize: 48 }}>{emoji}</Text>
+            <Text style={{ fontSize: 24, textAlign: "center" }}>
+              {Math.floor(confidences[index]*100/totalConf)}
+            </Text>
+          </View>;
+        })}
       </View>
-      <Text style={{
-        textAlign:"center",
-        fontSize:24,
-        fontWeight:"bold"
+
+      {/* <View style={{
+        height:200,
+        width:200,
+        backgroundColor:
       }}>
+
+      </View> */}
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 24,
+          fontWeight: "bold",
+        }}
+      >
         Sentiment Breakdown
       </Text>
       <ProgressChart
