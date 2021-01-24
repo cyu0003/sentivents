@@ -9,11 +9,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from './HomeScreen'
-import EditScreen from './EditScreen'
-import StatsScreen from './StatsScreen'
+import HomeScreen from './Screens/HomeScreen'
+import EditScreen from './Screens/EditScreen'
+import StatsScreen from './Screens/StatsScreen'
 
-import {globalStyles} from '../styles/global';
+import {globalStyles} from './styles/global';
 
 const Stack = createStackNavigator();
 

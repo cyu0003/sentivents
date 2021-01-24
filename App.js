@@ -5,7 +5,7 @@ import * as SQLite from 'expo-sqlite';
 
 import AppLoading from 'expo-app-loading';
 
-import Navigator from './src/Screens/Navigator';
+import Navigator from './src/Navigator';
 
 export default class App extends Component {
     constructor() {
