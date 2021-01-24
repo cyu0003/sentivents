@@ -37,6 +37,11 @@ export const globalStyles = StyleSheet.create({
     },
     secondary: {
         backgroundColor:"#505066",
+        borderRadius:8,
+        marginRight:16,
+        marginLeft:16,
+        marginTop:12,
+        padding:8
     },
     picker:{
         backgroundColor:"#505066",

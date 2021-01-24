@@ -8,13 +8,16 @@ import {
   Dimensions,
 } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
+import { Card } from "react-native-paper";
 import emojiList from "../../emojiList";
+import { globalStyles } from "../styles/global";
 import { interpolateColors } from "./Utils";
 const roundConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
   propsForLabels: {
-    fontSize: 16,
+    ...globalStyles.textLabel,
+    fill:globalStyles.textLabel.color
   },
   color: (opacity = 1) => {
     // console.log(opacity);
@@ -31,6 +34,15 @@ const data = {
   colors: ["#754af755", "#56d3e399", "#24e08cff"],
   // colors:["#754af7"]
 };
+
+const CardContainer=({children, style})=>{
+  return <View style={{
+    ...globalStyles.secondary,
+    ...style
+  }}>
+    {children}
+  </View>
+}
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -78,12 +90,12 @@ const DaySummary = ({
 
   return (
     <ScrollView>
-      <View style={{ marginBottom: 24 }}>
+      <CardContainer>
         <Text
           style={{
+            ...globalStyles.textLabel,
             textAlign: "center",
-            fontSize: 24,
-            fontWeight: "bold",
+            marginBottom:8
           }}
         >{`Emotions for ${
           monthNames[date.getMonth()]
@@ -98,17 +110,31 @@ const DaySummary = ({
           {emojies.map((emoji, index) => {
             return (
               <View key={index}>
-                <Text style={{ fontSize: 48 }}>{emoji}</Text>
-                <Text style={{ fontSize: 24, textAlign: "center" }}>
+                <Text style={{ ...globalStyles.textLabel, fontSize: 36 }}>
+                  {emoji}
+                </Text>
+                <Text
+                  style={{
+                    ...globalStyles.textLabel,
+                    fontSize: 24,
+                    textAlign: "center",
+                  }}
+                >
                   {Math.floor((confidences[index] * 100) / totalConf)}
                 </Text>
               </View>
             );
           })}
         </View>
-      </View>
-      <View style={{ marginBottom: 24 }}>
-        <Text style={{ fontSize: 24, textAlign: "center", fontWeight: "bold" }}>
+      </CardContainer>
+      <CardContainer>
+        <Text
+          style={{
+            ...globalStyles.textLabel,
+            textAlign: "center",
+            marginBottom:8
+          }}
+        >
           Estimated Mood Color
         </Text>
         <View style={{ justifyContent: "center", flexDirection: "row" }}>
@@ -123,7 +149,9 @@ const DaySummary = ({
                 justifyContent: "center",
               }}
             >
-              <Text style={{ fontSize: 24 }}>😄</Text>
+              <Text style={{ ...globalStyles.textLabel, fontSize: 24 }}>
+                😄
+              </Text>
             </View>
             <View
               style={{
@@ -135,7 +163,9 @@ const DaySummary = ({
                 justifyContent: "center",
               }}
             >
-              <Text style={{ fontSize: 24 }}>🙁</Text>
+              <Text style={{ ...globalStyles.textLabel, fontSize: 24 }}>
+                🙁
+              </Text>
             </View>
           </View>
 
@@ -152,20 +182,20 @@ const DaySummary = ({
             }}
           ></View>
         </View>
-      </View>
-      <View>
+      </CardContainer>
+      <CardContainer>
         <Text
           style={{
             textAlign: "center",
-            fontSize: 24,
-            fontWeight: "bold",
+            ...globalStyles.textLabel,
+            marginBottom:8
           }}
         >
           Sentiment Breakdown
         </Text>
         <ProgressChart
           chartConfig={roundConfig}
-          width={screenWidth}
+          width={360}
           height={220}
           strokeWidth={20}
           radius={32}
@@ -173,7 +203,7 @@ const DaySummary = ({
           withCustomBarColorFromData={true}
           // center={[1,2]}
         />
-      </View>
+      </CardContainer>
     </ScrollView>
   );
 };
